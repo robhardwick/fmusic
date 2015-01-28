@@ -1,0 +1,10 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+    <file>new.svg</file>
+    <file>open.svg</file>
+    <file>save.svg</file>
+    <file>play.svg</file>
+    <file>stop.svg</file>
+</qresource>
+</RCC>

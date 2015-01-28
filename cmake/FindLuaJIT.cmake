@@ -1,0 +1,25 @@
+# luajit
+#  LUAJIT_FOUND
+#  LUAJIT_INCLUDE_DIRS
+#  LUAJIT_LIBRARIES
+#  LUAJIT_DEFINITIONS
+
+find_package(PkgConfig)
+pkg_check_modules(PC_LUAJIT QUIET luajit)
+set(LUAJIT_DEFINITIONS ${PC_LUAJIT_CFLAGS_OTHER})
+
+find_path(LUAJIT_INCLUDE_DIR lua.h
+    HINTS ${PC_LUAJIT_INCLUDEDIR} ${PC_LUAJIT_INCLUDE_DIRS}
+    PATH_SUFFIXES luajit-2.0)
+
+find_library(LUAJIT_LIBRARY NAMES luajit luajit-5.1 libluajit libluajit-5.1
+    HINTS ${PC_LUAJIT_LIBDIR} ${PC_LUAJIT_LIBRARY_DIRS})
+
+set(LUAJIT_LIBRARIES ${LUAJIT_LIBRARY})
+set(LUAJIT_INCLUDE_DIRS ${LUAJIT_INCLUDE_DIR})
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(LuaJIT DEFAULT_MSG
+    LUAJIT_LIBRARY LUAJIT_INCLUDE_DIR)
+
+mark_as_advanced(LUAJIT_INCLUDE_DIR LUAJIT_LIBRARY)
