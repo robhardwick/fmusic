@@ -3,6 +3,10 @@ find_package(LuaJIT)
 include_directories(${LUAJIT_INCLUDE_DIR})
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pagezero_size 10000 -image_base 100000000")
 
+# RtMidi
+find_package(RtMidi)
+include_directories(${RTMIDI_INCLUDE_DIR})
+
 # QT
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
@@ -29,5 +33,6 @@ add_executable(EvoMu MACOSX_BUNDLE
     Log.cpp
     LogWindow.cpp)
 
+# Link static library and QT
 target_link_libraries(EvoMu libevomu)
 target_link_libraries(EvoMu ${Qt5Widgets_LIBRARIES})

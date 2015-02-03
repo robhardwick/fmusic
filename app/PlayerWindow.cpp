@@ -90,6 +90,7 @@ PlayerWindow::PlayerWindow(Core::Player *player)
 
     // Start with blank document
     setCurrentSong("");
+    textEdit.setPlainText("return 144, 30, 120");
 }
 
 /**

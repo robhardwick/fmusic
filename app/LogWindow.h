@@ -17,7 +17,7 @@ namespace App {
             LogWindow(Log *log);
 
         private slots:
-            void append(EvoMu::Core::LogStatus status, const std::string &message);
+            void append(QString str);
             void clear();
 
         private:

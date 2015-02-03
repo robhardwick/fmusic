@@ -1,3 +1,4 @@
+#include <QMessageBox>
 #include "App.h"
 
 using namespace EvoMu::App;
@@ -17,9 +18,7 @@ App::App(int &argc, char *argv[])
     exitAction.setShortcuts(QKeySequence::Quit);
     connect(&exitAction, SIGNAL(triggered()), this, SLOT(quit()));
 
-    // Show log window
+    // Show log and player windows
     logWindow.show();
-
-    // Show player window
     playerWindow.show();
 }

@@ -15,7 +15,7 @@ namespace App {
             void message(EvoMu::Core::LogStatus status, const std::string &message);
 
         signals:
-            void write(EvoMu::Core::LogStatus status, const std::string &message);
+            void write(QString str);
 
     };
 

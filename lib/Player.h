@@ -2,7 +2,11 @@
 #define EVOMU_CORE_PLAYER_H
 
 #include <string>
-#include <functional>
+#include <vector>
+#include <chrono>
+#include <thread>
+#include <mutex>
+#include <RtMidi.h>
 #include <lua.hpp>
 
 namespace EvoMu {
@@ -26,7 +30,17 @@ namespace Core {
             void stop();
 
         private:
+            void task();
+            bool execute(std::vector<unsigned char> &message);
+
             Log *log;
+            std::string data;
+            bool playing = false;
+
+            std::thread thread;
+            std::mutex mutex;
+
+            RtMidiOut midi;
             lua_State *state;
     };
 

@@ -12,5 +12,6 @@ add_library(libevomu STATIC
     Song.cpp
 )
 
+# Link LuaJIT and RtMidi
 target_link_libraries(libevomu ${LUAJIT_LIBRARIES})
 target_link_libraries(libevomu ${RTMIDI_LIBRARIES})

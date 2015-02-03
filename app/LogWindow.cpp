@@ -1,6 +1,4 @@
-#include <sstream>
 #include <QMenuBar>
-#include <QDateTime>
 #include "LogWindow.h"
 
 using namespace EvoMu::App;
@@ -16,7 +14,7 @@ LogWindow::LogWindow(Log *log)
     // Window configuration
     setWindowIconText(tr("Log"));
     setCentralWidget(&text);
-    setGeometry(20, 480, 600, 200);
+    setGeometry(20, 480, 800, 200);
 
     // Log
     connect(log, &Log::write, this, &LogWindow::append);
@@ -49,19 +47,11 @@ LogWindow::LogWindow(Log *log)
     text.setReadOnly(true);
 }
 
-const char *logStatusName[] = {"error", "warn", "info", "debug"};
-
 /**
  * Append log message to window
  */
-void LogWindow::append(EvoMu::Core::LogStatus status, const std::string &message) {
-    QDateTime dateTime(QDateTime::currentDateTime());
-    std::string dateTimeStr = dateTime.toString("yyyy-MM-ddThh:mm:ss.zzz").toStdString();
-
-    std::ostringstream out;
-    out << '[' << dateTimeStr << "] [" << logStatusName[(int)status] << "] " << message;
-
-    text.appendPlainText(out.str().c_str());
+void LogWindow::append(QString str) {
+    text.appendPlainText(str);
 }
 
 /**
