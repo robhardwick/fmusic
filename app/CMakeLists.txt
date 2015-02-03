@@ -14,10 +14,10 @@ find_package(Qt5Widgets)
 include_directories(${Qt5Widgets_INCLUDE_DIRS})
 
 # Resources / Icon
-qt5_add_resources(EvoMu_RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/share/evomu.qrc)
+qt5_add_resources(EvoMu_RESOURCES ${PROJECT_SOURCE_DIR}/share/evomu.qrc)
 
 set(MACOSX_BUNDLE_ICON_FILE EvoMu.icns)
-set(EvoMu_ICON ${CMAKE_CURRENT_SOURCE_DIR}/share/EvoMu.icns)
+set(EvoMu_ICON ${PROJECT_SOURCE_DIR}/share/EvoMu.icns)
 set_source_files_properties(${EvoMu_ICON} PROPERTIES
     MACOSX_PACKAGE_LOCATION "Resources")
 
