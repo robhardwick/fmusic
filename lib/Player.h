@@ -26,7 +26,11 @@ namespace Core {
             Player(Log *log);
             ~Player();
 
+            bool isPlaying();
+            bool isPaused();
+
             void play(const std::string &song);
+            void pause();
             void stop();
 
         private:
@@ -35,6 +39,7 @@ namespace Core {
 
             Log *log;
             bool playing = false;
+            bool paused = false;
             std::chrono::high_resolution_clock::time_point start, timeout;
 
             std::thread thread;

@@ -30,12 +30,16 @@ namespace App {
             void stop();
 
         private:
+            void setPlayAction();
             void setCurrentSong(const QString &fileName);
             void loadSong(const QString &fileName);
             bool saveSong(const QString &fileName);
             bool saveIfModified();
 
             QString curSong;
+
+            QIcon playIcon;
+            QIcon pauseIcon;
 
             QAction newAction;
             QAction openAction;

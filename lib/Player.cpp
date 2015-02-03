@@ -21,6 +21,16 @@ Player::~Player() {
     stop();
 }
 
+bool Player::isPlaying() {
+    std::unique_lock<std::mutex> lock(mutex);
+    return playing;
+}
+
+bool Player::isPaused() {
+    std::unique_lock<std::mutex> lock(mutex);
+    return paused;
+}
+
 /**
  * Start playing specified song
  */
@@ -42,10 +52,19 @@ void Player::play(const std::string &song) {
     lua_pcall(lua, 0, 0, 0);
 
     // Enable playing in execution thread
+    paused = false;
     playing = true;
 
     // Start execution thread
     thread = std::thread(&Player::task, this);
+}
+
+/**
+ * Pause playing
+ */
+void Player::pause() {
+    std::unique_lock<std::mutex> lock(mutex);
+    paused = !paused;
 }
 
 /**
@@ -84,10 +103,13 @@ void Player::task() {
     start = timeout = std::chrono::high_resolution_clock::now();
 
     do {
-        // Attempt to execute song
-        if (execute(message)) {
-            // Send MIDI message
-            midi.sendMessage(&message);
+        // Only execute if paused is false
+        if (!paused) {
+            // Attempt to execute song
+            if (execute(message)) {
+                // Send MIDI message
+                midi.sendMessage(&message);
+            }
         }
 
         // Set next execution time

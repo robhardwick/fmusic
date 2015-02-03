@@ -16,11 +16,13 @@ const char *DEFAULT = "function f(t)\n"
  */
 PlayerWindow::PlayerWindow(Core::Player *player)
     : QMainWindow(),
+      playIcon(":/play.svg"),
+      pauseIcon(":/pause.svg"),
       newAction(QIcon(":/new.svg"), tr("&New"), this),
       openAction(QIcon(":/open.svg"), tr("&Open..."), this),
       saveAction(QIcon(":/save.svg"), tr("&Save"), this),
       saveAsAction(tr("Save &As..."), this),
-      playAction(QIcon(":/play.svg"), tr("&Play"), this),
+      playAction(this),
       stopAction(QIcon(":/stop.svg"), tr("S&top"), this),
       closeAction(tr("&Close"), this),
       player(player) {
@@ -31,6 +33,8 @@ PlayerWindow::PlayerWindow(Core::Player *player)
     setGeometry(20, 20, 600, 400);
 
     // Actions
+    setPlayAction();
+
     newAction.setShortcuts(QKeySequence::New);
     newAction.setStatusTip(tr("Create a new song"));
     connect(&newAction, SIGNAL(triggered()), this, SLOT(newSong()));
@@ -173,14 +177,33 @@ bool PlayerWindow::saveAs() {
  * Play current song document
  */
 void PlayerWindow::play() {
-    player->play(textEdit.toPlainText().toUtf8().constData());
+    if (player->isPlaying()) {
+        player->pause();
+    } else {
+        player->play(textEdit.toPlainText().toUtf8().constData());
+    }
+    setPlayAction();
 }
 
 /**
- * Stop playing current song document
+ * Stop playing current song
  */
 void PlayerWindow::stop() {
     player->stop();
+    setPlayAction();
+}
+
+/**
+ * Set state of play/pause toolbar button and menu item
+ */
+void PlayerWindow::setPlayAction() {
+    if (player->isPlaying() && !player->isPaused()) {
+        playAction.setIcon(pauseIcon);
+        playAction.setText(tr("&Pause"));
+    } else {
+        playAction.setIcon(playIcon);
+        playAction.setText(tr("&Play"));
+    }
 }
 
 /**
