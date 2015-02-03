@@ -1,0 +1,10 @@
+function f(t)
+	if (t % 10000) == 0 then
+		return 144, (math.cos(t % math.pi) * 24) + 36, 70
+	elseif (t % 4000) == 0 then
+		return 144, (math.cos(t % math.pi) * 16) + 59, 70
+	elseif (t % 4600) == 0 then
+		return 144, (math.cos(t % math.pi) * 8) + 48, 70
+	end
+	return 0, 0, 0
+end

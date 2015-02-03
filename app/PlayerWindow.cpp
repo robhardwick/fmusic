@@ -4,6 +4,13 @@
 
 using namespace EvoMu::App;
 
+const char *DEFAULT = "function f(t)\n"
+                      "\tif (t % 300) == 0 then\n"
+                      "\t\treturn 144, (math.sin(t % math.pi) * 26) + 48, 70\n"
+                      "\tend\n"
+                      "\treturn 0, 0, 0\n"
+                      "end";
+
 /**
  * Create player/editor window
  */
@@ -21,7 +28,7 @@ PlayerWindow::PlayerWindow(Core::Player *player)
     // Window configuration
     setUnifiedTitleAndToolBarOnMac(true);
     setCentralWidget(&textEdit);
-    setGeometry(20, 20, 400, 400);
+    setGeometry(20, 20, 600, 400);
 
     // Actions
     newAction.setShortcuts(QKeySequence::New);
@@ -74,23 +81,30 @@ PlayerWindow::PlayerWindow(Core::Player *player)
     toolbar->addAction(&stopAction);
 
     // Text widget colour palette
-    textPalette.setColor(QPalette::Base, QColor::fromRgb(255,255,255));
-    textPalette.setColor(QPalette::Text, QColor::fromRgb(0,0,0));
+    palette.setColor(QPalette::Base, QColor::fromRgb(255,255,255));
+    palette.setColor(QPalette::Text, QColor::fromRgb(0,0,0));
 
-    // Text widget format
-    textFormat.setFontFamily("Menlo");
-    textFormat.setFontPointSize(12);
+    // Text widget font
+    font.setFamily("Menlo");
+    font.setStyleHint(QFont::Monospace);
+    font.setFixedPitch(true);
+    font.setPointSize(12);
 
     // Text widget configuration
-    textEdit.setPalette(textPalette);
-    textEdit.setCurrentCharFormat(textFormat);
+    textEdit.setPalette(palette);
+    textEdit.setFont(font);
+
+    // Set tab width
+    QFontMetrics metrics(font);
+    textEdit.setTabStopWidth(4 * metrics.width(' '));
 
     // Status bar
     statusBar()->showMessage(tr("Ready"));
 
     // Start with blank document
     setCurrentSong("");
-    textEdit.setPlainText("return 144, 30, 120");
+    textEdit.setPlainText(DEFAULT);
+
 }
 
 /**
@@ -177,10 +191,7 @@ void PlayerWindow::setCurrentSong(const QString &fileName) {
     textEdit.document()->setModified(false);
     setWindowModified(false);
 
-    QString shownName = curSong;
-    if (curSong.isEmpty())
-        shownName = "untitled.emu";
-    setWindowFilePath(shownName);
+    setWindowFilePath((curSong.isEmpty()) ? "untitled.emu" : curSong);
 }
 
 /**

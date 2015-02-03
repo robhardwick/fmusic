@@ -49,8 +49,8 @@ namespace App {
             QMenu *playMenu;
             QToolBar *toolbar;
 
-            QPalette textPalette;
-            QTextCharFormat textFormat;
+            QPalette palette;
+            QFont font;
             QPlainTextEdit textEdit;
 
             Core::Player *player;

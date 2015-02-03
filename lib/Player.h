@@ -34,14 +34,14 @@ namespace Core {
             bool execute(std::vector<unsigned char> &message);
 
             Log *log;
-            std::string data;
             bool playing = false;
+            std::chrono::high_resolution_clock::time_point start, timeout;
 
             std::thread thread;
             std::mutex mutex;
 
             RtMidiOut midi;
-            lua_State *state;
+            lua_State *lua;
     };
 
 }

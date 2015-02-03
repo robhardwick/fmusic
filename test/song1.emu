@@ -1,0 +1,10 @@
+function f(t)
+	if (t % 800) == 0 then
+		return 144, (math.sin(t % math.pi) * 13) + 40, 90
+	elseif (t % 600) == 0 then
+		return 144, (math.tan(t % math.pi) * 13) + 52, 80
+	elseif (t % 400) == 0 then
+		return 144, (math.cos(t % math.pi) * 13) + 64, 70
+	end
+	return 0, 0, 0
+end

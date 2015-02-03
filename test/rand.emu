@@ -1,0 +1,7 @@
+math.randomseed(os.time())
+function f(t)
+	if (t % math.random(400, 1000)) == 0 then
+		return 144, math.random(45, 69), math.random(60, 120)
+	end
+	return 0, 0, 0
+end
