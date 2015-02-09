@@ -10,11 +10,11 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 enable_testing()
 
 # LuaJIT
-find_package(LuaJIT)
+find_package(LuaJIT REQUIRED)
 include_directories(${LUAJIT_INCLUDE_DIR})
 
 # RtMidi
-find_package(RtMidi)
+find_package(RtMidi REQUIRED)
 include_directories(${RTMIDI_INCLUDE_DIR})
 
 # Build static library, QT app and tests
