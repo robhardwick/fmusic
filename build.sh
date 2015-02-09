@@ -25,5 +25,10 @@ cmake -DCMAKE_BUILD_TYPE=debug ..
 make
 cd $CWD
 
-# Run app
-$BUILD/app/EvoMu.app/Contents/MacOS/EvoMu;
+if [[ $1 == "test" ]]; then
+    # Run tests
+    make -C $BUILD test
+else
+    # Run app
+    $BUILD/app/EvoMu.app/Contents/MacOS/EvoMu;
+fi

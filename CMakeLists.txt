@@ -6,6 +6,10 @@ project(EvoMu)
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-Wall -std=c++11")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 
-# Build static library and QT app
-add_subdirectory(lib)
+# Enable testing
+enable_testing()
+
+# Build static library, QT app and tests
 add_subdirectory(app)
+add_subdirectory(lib)
+add_subdirectory(tests)
