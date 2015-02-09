@@ -1,10 +1,14 @@
+function play(t, offset)
+	return 144, (math.sin(t % math.pi) * 13) + offset, 70
+end
+
 function f(t)
 	if (t % 800) == 0 then
-		return 144, (math.sin(t % math.pi) * 13) + 40, 90
+		return play(t, 40)
 	elseif (t % 600) == 0 then
-		return 144, (math.tan(t % math.pi) * 13) + 52, 80
+		return play(t, 52)
 	elseif (t % 400) == 0 then
-		return 144, (math.cos(t % math.pi) * 13) + 64, 70
+		return play(t, 64)
 	end
 	return 0, 0, 0
 end

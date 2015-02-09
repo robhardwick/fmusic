@@ -2,8 +2,6 @@ state = 0
 
 function f(t)
 	if (t % 100) == 0 then
-		status = 144
-		data2 = 90
 		state = state + 1
 		if state >= 127 then
 			state = 0
@@ -19,7 +17,7 @@ function f(t)
 		if data1 < 0 then
 			data1 = 127 + data1
 		end
-		return status, data1, data2
+		return 144, data1, 80
 	end
 	return 0, 0, 0
 end
