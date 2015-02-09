@@ -1,4 +1,4 @@
-# LuaJIT linker flags
+# LuaJIT
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pagezero_size 10000 -image_base 100000000")
 
 # QT
