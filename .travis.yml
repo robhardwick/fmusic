@@ -1,22 +1,15 @@
 language: cpp
 
-os:
-    - linux
-    - osx
+os: linux
 
-osx_image: xcode61
-
-compiler:
-    - gcc
-    - clang
+compiler: gcc
 
 install:
     # Install dependencies
-    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then ./scripts/deps-ubuntu.sh; fi
-    - if [ "$TRAVIS_OS_NAME" == "osx" ]; then ./scripts/deps-osx.sh; fi
+    - ./scripts/deps-ubuntu.sh
 
     # Start dummy MIDI server
-    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then jackd -d dummy > /dev/null & fi
+    - jackd -d dummy > /dev/null &
 
 script:
     # Build and run tests
