@@ -1,9 +1,5 @@
 language: cpp
 
-compiler:
-    - gcc
-    - clang
-
 install:
     # Install dependencies
     - ./scripts/deps.sh
