@@ -1,8 +1,13 @@
 language: cpp
 
+os:
+    - linux
+    - osx
+
 install:
     # Install dependencies
-    - ./scripts/deps.sh
+    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then ./scripts/deps-ubuntu.sh; fi
+    - if [ "$TRAVIS_OS_NAME" == "osx" ]; then ./scripts/deps-osx.sh; fi
 
     # Start dummy MIDI server
     - if [ "$TRAVIS_OS_NAME" == "linux" ]; then jackd -d dummy > /dev/null & fi
