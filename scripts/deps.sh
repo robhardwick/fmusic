@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Update
+sudo apt-get update -qq
+sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -qq -o Dpkg::Options::="--force-confnew"
+
 # Install "add-apt-repository" command
 sudo apt-get install -qq python-software-properties
 
