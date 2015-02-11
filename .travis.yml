@@ -6,6 +6,10 @@ os:
 
 osx_image: xcode61
 
+compiler:
+    - gcc
+    - clang
+
 install:
     # Install dependencies
     - if [ "$TRAVIS_OS_NAME" == "linux" ]; then ./scripts/deps-ubuntu.sh; fi
