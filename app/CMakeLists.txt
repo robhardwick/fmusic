@@ -1,5 +1,7 @@
-# LuaJIT
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pagezero_size 10000 -image_base 100000000")
+# Fix LuaJIT on OS X
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pagezero_size 10000 -image_base 100000000")
+endif()
 
 # QT
 set(CMAKE_INCLUDE_CURRENT_DIR ON)

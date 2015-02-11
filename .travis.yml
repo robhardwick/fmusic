@@ -3,9 +3,8 @@ language: cpp
 compiler: clang
 
 before_install:
-    - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
-    - sudo apt-get update -qq
-    - sudo apt-get install qtbase5-dev qt5-default qttools5-dev-tools libluajit-5.1-dev librtmidi-dev
+    - ./scripts/deps.sh
 
 script:
-    - ./build.sh test
+    - jackd -d dummy > /dev/null &
+    - ./scripts/build.sh test
