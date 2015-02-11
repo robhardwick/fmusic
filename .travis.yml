@@ -9,7 +9,7 @@ install:
     - ./scripts/deps-ubuntu.sh
 
     # Start dummy MIDI server
-    - jackd -d dummy > /dev/null &
+    - jackd -d dummy &> /dev/null &
 
 script:
     # Build and run tests

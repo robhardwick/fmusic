@@ -1,4 +1,4 @@
-# Fix LuaJIT on OS X
+# Fix linked LuaJIT on OS X (via libevomu)
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pagezero_size 10000 -image_base 100000000")
 endif()
@@ -9,9 +9,10 @@ set(CMAKE_AUTOMOC ON)
 find_package(Qt5Widgets)
 include_directories(${Qt5Widgets_INCLUDE_DIRS})
 
-# Resources / Icon
+# Resources
 qt5_add_resources(EvoMu_RESOURCES ${PROJECT_SOURCE_DIR}/share/evomu.qrc)
 
+# Icon
 set(MACOSX_BUNDLE_ICON_FILE EvoMu.icns)
 set(EvoMu_ICON ${PROJECT_SOURCE_DIR}/share/EvoMu.icns)
 set_source_files_properties(${EvoMu_ICON} PROPERTIES
@@ -26,8 +27,8 @@ add_executable(EvoMu MACOSX_BUNDLE
     ${EvoMu_ICON}
     main.cpp
     App.cpp
+    AppLog.cpp
     PlayerWindow.cpp
-    Log.cpp
     LogWindow.cpp)
 
 # Link static library and QT

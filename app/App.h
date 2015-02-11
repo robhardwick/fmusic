@@ -2,7 +2,7 @@
 #define EVOMU_APP_APP_H
 
 #include <QApplication>
-#include "Log.h"
+#include "AppLog.h"
 #include "LogWindow.h"
 #include "PlayerWindow.h"
 
@@ -18,7 +18,7 @@ namespace App {
         private:
             QAction exitAction;
 
-            Log log;
+            AppLog log;
             Core::Player player;
 
             LogWindow logWindow;

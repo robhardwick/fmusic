@@ -5,7 +5,7 @@
 #include <QAction>
 #include <QMenu>
 #include <QPlainTextEdit>
-#include "Log.h"
+#include "AppLog.h"
 
 namespace EvoMu {
 namespace App {
@@ -14,7 +14,7 @@ namespace App {
         Q_OBJECT
 
         public:
-            LogWindow(Log *log);
+            LogWindow(AppLog *log);
 
         private slots:
             void append(QString str);

@@ -1,14 +1,14 @@
-#ifndef EVOMU_APP_LOG_H
-#define EVOMU_APP_LOG_H
+#ifndef EVOMU_APP_APPLOG_H
+#define EVOMU_APP_APPLOG_H
 
 #include <QObject>
 #include <string>
-#include "Player.h"
+#include "Log.h"
 
 namespace EvoMu {
 namespace App {
 
-    class Log : public QObject, public EvoMu::Core::Log {
+    class AppLog : public QObject, public EvoMu::Core::Log {
         Q_OBJECT
 
         public:

@@ -1,6 +1,6 @@
 #include <QtTest/QtTest>
 #include "Log.h"
-#include "Player.h"
+#include "Song.h"
 
 using namespace EvoMu::Core;
 
@@ -14,9 +14,9 @@ class TestLog: public Log {
 };
 
 /**
- * Test the EvoMu::Core::Player class
+ * Test the EvoMu::Core::Song class
  */
-class TestPlayer: public QObject {
+class TestSong: public QObject {
     Q_OBJECT
 
     private slots:
@@ -26,16 +26,13 @@ class TestPlayer: public QObject {
 /**
  * Test instantiation
  */
-void TestPlayer::create() {
+void TestSong::create() {
     TestLog l;
-    Player p(&l);
-
-    QCOMPARE(p.isPlaying(), false);
-    QCOMPARE(p.isPaused(), false);
+    Song s(&l, "function f(t)\nreturn 0, 0, 0\nend");
 }
 
 /**
  * Run tests
  */
-QTEST_MAIN(TestPlayer)
-#include "TestPlayer.moc"
+QTEST_MAIN(TestSong)
+#include "TestSong.moc"
