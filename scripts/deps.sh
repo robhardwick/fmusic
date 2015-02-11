@@ -11,4 +11,4 @@ sudo apt-get update -qq
 sudo DEBIAN_FRONTEND=noninteractive apt-get install \
     qtbase5-dev qt5-default qttools5-dev-tools \
     libluajit-5.1-dev librtmidi-dev \
-    jackd
+    librtaudio-dev jackd
