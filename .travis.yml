@@ -1,8 +1,16 @@
 language: cpp
 
-before_install:
+compiler:
+    - gcc
+    - clang
+
+install:
+    # Install dependencies
     - ./scripts/deps.sh
 
+    # Start dummy MIDI server
+    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then jackd -d dummy > /dev/null & fi
+
 script:
-    - jackd -d dummy > /dev/null &
+    # Build and run tests
     - ./scripts/build.sh test

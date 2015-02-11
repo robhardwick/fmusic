@@ -1,14 +1,10 @@
 #!/bin/bash
 set -e
 
-# For homebrew on os x
-export CMAKE_PREFIX_PATH="/usr/local/opt/qt5:/usr/local/opt/luajit"
-
-# Paths
-CWD=`pwd`
+# Path
 BUILD="./build"
 
-# Clean build dir and exit
+# Remove build dir and exit
 if [[ $1 == "clean" ]]; then
     rm -r $BUILD
     exit
@@ -19,15 +15,16 @@ if [ ! -d "$BUILD" ]; then
     mkdir $BUILD
 fi
 
-# Enter tmp dir and build
-cd $BUILD
-cmake -DCMAKE_BUILD_TYPE=debug ..
-make
-cd $CWD
+# For homebrew on os x
+export CMAKE_PREFIX_PATH="/usr/local/opt/qt5:/usr/local/opt/luajit"
+
+# Build
+cmake -B$BUILD -H. -DCMAKE_BUILD_TYPE=debug
+make --directory=$BUILD
 
 if [[ $1 == "test" ]]; then
     # Run tests
-    make -C $BUILD test
+    make --directory=$BUILD test
 else
     # Run app
     $BUILD/app/EvoMu.app/Contents/MacOS/EvoMu;

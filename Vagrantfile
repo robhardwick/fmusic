@@ -10,6 +10,11 @@ Vagrant.configure(2) do |config|
 
     # Install dependencies
     /vagrant/scripts/deps.sh
+
+    # Setup JACK
+    sudo sh -c 'echo "@audio\t-\trtprio\t99" >> /etc/security/limits.conf'
+    sudo usermod -a -G audio vagrant
+
     # Clean up
     sudo apt-get clean
     sudo apt-get autoclean
