@@ -4,15 +4,18 @@ set -e
 # Install "add-apt-repository" command
 sudo apt-get install --yes python-software-properties
 
-if [ "$CC" = "gcc" ]; then
-    # Add toolchain repo for GCC 4.8
-    sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
-    sudo apt-get update
 
-    # Install GCC 4.8
-    sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes gcc-4.8 g++-4.8
-    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
+# Add toolchain repo for GCC 4.8
+sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+
+# Install GCC 4.8
+sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes g++-4.8
+
+# Set GCC 4.8 as default if not building with clang
+if [ "$CXX" = "g++" ]; then
     sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
+    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 fi
 
 # Add SDK repo for QT5
