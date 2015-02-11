@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include <chrono>
 #include <thread>
 #include <mutex>
@@ -32,10 +33,10 @@ namespace Core {
             void task();
             bool execute(std::vector<unsigned char> &message);
 
-            RtMidiOut *midi;
+            std::unique_ptr<RtMidiOut> midi;
 
             Log *log;
-            Song *song;
+            std::unique_ptr<Song> song;
 
             bool playing = false;
             bool paused = false;

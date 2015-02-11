@@ -10,26 +10,27 @@ using namespace EvoMu::Core;
  */
 Song::Song(Log *log, const std::string &str)
     : log(log),
-      lua(luaL_newstate()) {
+      L(luaL_newstate()) {
 
     // Load lua core libs
-    luaL_openlibs(lua);
+    luaL_openlibs(L.get());
 
     // Load song
-    if (luaL_loadstring(lua, str.c_str())) {
+    if (luaL_loadstring(L.get(), str.c_str())) {
         log->message(LogStatus::Error,
-            std::string("Parse failed: ") + lua_tostring(lua, -1));
-        lua_pop(lua, 1);
-        throw std::runtime_error("FAILED");
+            std::string("Parse failed: ") + lua_tostring(L.get(), -1));
+        lua_pop(L.get(), 1);
+        return;
     }
-    lua_pcall(lua, 0, 0, 0);
+
+    lua_pcall(L.get(), 0, 0, 0);
 }
 
 /**
- * Cleanup
+ * Cleanup lua instance
  */
-Song::~Song() {
-    lua_close(lua);
+void Song::LuaDeleter::operator()(lua_State *L) {
+    lua_close(L);
 }
 
 /**
@@ -42,19 +43,19 @@ bool Song::execute(int32_t offset, std::vector<unsigned char> &message) {
     int numValues = 1;
 
     // Call function "f" with the time offset as the only argument
-    lua_getfield(lua, LUA_GLOBALSINDEX, "f");
-    lua_pushinteger(lua, offset);
+    lua_getfield(L.get(), LUA_GLOBALSINDEX, "f");
+    lua_pushinteger(L.get(), offset);
 
     // Execute
-    if (lua_pcall(lua, 1, 3, 0)) {
+    if (lua_pcall(L.get(), 1, 3, 0)) {
         // Log an error
         log->message(LogStatus::Error,
-            std::string("Execution failed: ") + lua_tostring(lua, -1));
+            std::string("Execution failed: ") + lua_tostring(L.get(), -1));
         goto cleanup;
     }
 
     // Check return values
-    numValues = lua_gettop(lua);
+    numValues = lua_gettop(L.get());
     if (numValues != 3) {
         log->message(LogStatus::Error,
             "Invalid message size (" + std::to_string(numValues) + ")");
@@ -63,9 +64,9 @@ bool Song::execute(int32_t offset, std::vector<unsigned char> &message) {
 
     // Put return values into MIDI message
     for (int i = 0; i < 3; i++) {
-        if (lua_isnumber(lua, i)) {
+        if (lua_isnumber(L.get(), i)) {
             // Add to message
-            message[i] = (unsigned char)lua_tointeger(lua, i - 3);
+            message[i] = (unsigned char)lua_tointeger(L.get(), i - 3);
         } else {
             // Log error and bail
             log->message(LogStatus::Error,
@@ -91,6 +92,6 @@ bool Song::execute(int32_t offset, std::vector<unsigned char> &message) {
 
     // Clean up stack
     cleanup:
-        lua_pop(lua, numValues);
+        lua_pop(L.get(), numValues);
         return success;
 }

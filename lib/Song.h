@@ -2,6 +2,7 @@
 #define EVOMU_CORE_SONG_H
 
 #include <cstdint>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -16,12 +17,16 @@ namespace Core {
 
         public:
             Song(Log *log, const std::string &str);
-            ~Song();
             bool execute(int32_t offset, std::vector<unsigned char> &message);
 
         private:
+            class LuaDeleter {
+                public:
+                    void operator()(lua_State *L);
+            };
+
             Log *log;
-            lua_State *lua;
+            std::unique_ptr<lua_State, LuaDeleter> L;
 
     };
 

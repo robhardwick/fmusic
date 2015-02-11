@@ -7,8 +7,7 @@ using namespace EvoMu::Core;
 
 Player::Player(Log *log)
     : midi(new RtMidiOut()),
-      log(log),
-      song(NULL) {
+      log(log) {
 
     // Check available ports.
     unsigned int numPorts = midi->getPortCount();
@@ -22,7 +21,6 @@ Player::Player(Log *log)
 
 Player::~Player() {
     stop();
-    delete midi;
 }
 
 bool Player::isPlaying() {
@@ -47,7 +45,7 @@ void Player::play(const std::string &str) {
     playing = true;
 
     // Initialise song
-    song = new Song(log, str);
+    song = std::unique_ptr<Song>(new Song(log, str));
 
     // Start execution thread
     thread = std::thread(&Player::task, this);
@@ -75,11 +73,6 @@ void Player::stop() {
 
         // Join thread until it returns
         thread.join();
-
-        // Check if song is initialised
-        if (song) {
-            delete song;
-        }
     }
 }
 
