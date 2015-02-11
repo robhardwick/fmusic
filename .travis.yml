@@ -4,6 +4,8 @@ os:
     - linux
     - osx
 
+osx_image: xcode61
+
 install:
     # Install dependencies
     - if [ "$TRAVIS_OS_NAME" == "linux" ]; then ./scripts/deps-ubuntu.sh; fi
