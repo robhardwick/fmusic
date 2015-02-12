@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include <chrono>
 #include <thread>
 #include <mutex>
 
@@ -40,7 +39,6 @@ namespace Core {
 
             bool playing = false;
             bool paused = false;
-            std::chrono::high_resolution_clock::time_point start, timeout;
 
             std::thread thread;
             std::mutex mutex;

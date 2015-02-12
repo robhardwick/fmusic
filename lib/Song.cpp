@@ -5,6 +5,9 @@
 
 using namespace EvoMu::Core;
 
+// Map MIDI message index to name
+const char *MESSAGE_VALUE_NAME[] = {"status", "data 1", "data 2"};
+
 /**
  * Initialise lua and load song text
  */
@@ -36,8 +39,6 @@ void Song::LuaDeleter::operator()(lua_State *L) {
 /**
  * Execute the song
  */
-const char *messageValueName[] = {"status", "data 1", "data 2"};
-
 bool Song::execute(int32_t offset, std::vector<unsigned char> &message) {
     bool success = false;
     int numValues = 1;
@@ -70,7 +71,7 @@ bool Song::execute(int32_t offset, std::vector<unsigned char> &message) {
         } else {
             // Log error and bail
             log->message(LogStatus::Error,
-                std::string("Invalid ") + messageValueName[i] + " value");
+                std::string("Invalid ") + MESSAGE_VALUE_NAME[i] + " value");
             goto cleanup;
         }
     }

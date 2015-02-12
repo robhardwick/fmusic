@@ -1,3 +1,4 @@
+#include <chrono>
 #include <RtMidi.h>
 #include "Player.h"
 #include "Song.h"
@@ -99,6 +100,7 @@ void Player::task() {
     std::unique_lock<std::mutex> lock(mutex);
 
     // Current time as base timeout
+    std::chrono::high_resolution_clock::time_point start, timeout;
     start = timeout = std::chrono::high_resolution_clock::now();
 
     do {

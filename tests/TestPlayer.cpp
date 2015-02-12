@@ -1,22 +1,13 @@
 #include <QtTest/QtTest>
-#include "Log.h"
+#include "Test.h"
 #include "Player.h"
 
 using namespace EvoMu::Core;
 
 /**
- * Stub logging for tests
- */
-class TestLog: public Log {
-    void message(LogStatus status, const std::string &message) {
-        // TODO
-    };
-};
-
-/**
  * Test the EvoMu::Core::Player class
  */
-class TestPlayer: public QObject {
+class TestPlayer: public EvoMuTest {
     Q_OBJECT
 
     private slots:

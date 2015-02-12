@@ -24,7 +24,7 @@ make --directory=$BUILD
 
 if [[ $1 == "test" ]]; then
     # Run tests
-    make --directory=$BUILD test
+    CTEST_OUTPUT_ON_FAILURE=TRUE make --directory=$BUILD test
 else
     # Run app
     $BUILD/app/EvoMu.app/Contents/MacOS/EvoMu;

@@ -17,11 +17,11 @@ include_directories(${PROJECT_SOURCE_DIR}/lib)
 foreach(TEST_NAME Player Song)
 
     # Create test
-    add_executable("Test${TEST_NAME}" "Test${TEST_NAME}.cpp")
-    add_test("Test${TEST_NAME}" "Test${TEST_NAME}")
+    add_executable(Test${TEST_NAME} Test.cpp Test${TEST_NAME}.cpp)
+    add_test(Test${TEST_NAME} Test${TEST_NAME})
 
     # Link with QT5Test and libevomu
-    target_link_libraries("Test${TEST_NAME}" ${Qt5Test_LIBRARIES})
-    target_link_libraries("Test${TEST_NAME}" libevomu)
+    target_link_libraries(Test${TEST_NAME} ${Qt5Test_LIBRARIES})
+    target_link_libraries(Test${TEST_NAME} libevomu)
 
 endforeach()
