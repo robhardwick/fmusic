@@ -14,8 +14,9 @@ const char *DEFAULT = "function f(t)\n"
 /**
  * Create player/editor window
  */
-PlayerWindow::PlayerWindow(Core::Player *player)
+PlayerWindow::PlayerWindow(std::shared_ptr<AppLog> log)
     : QMainWindow(),
+      player(log),
       playIcon(":/play.svg"),
       pauseIcon(":/pause.svg"),
       newAction(QIcon(":/new.svg"), tr("&New"), this),
@@ -24,8 +25,7 @@ PlayerWindow::PlayerWindow(Core::Player *player)
       saveAsAction(tr("Save &As..."), this),
       playAction(this),
       stopAction(QIcon(":/stop.svg"), tr("S&top"), this),
-      closeAction(tr("&Close"), this),
-      player(player) {
+      closeAction(tr("&Close"), this) {
 
     // Window configuration
     setUnifiedTitleAndToolBarOnMac(true);
@@ -177,10 +177,10 @@ bool PlayerWindow::saveAs() {
  * Play current song document
  */
 void PlayerWindow::play() {
-    if (player->isPlaying()) {
-        player->pause();
+    if (player.isPlaying()) {
+        player.pause();
     } else {
-        player->play(textEdit.toPlainText().toUtf8().constData());
+        player.play(textEdit.toPlainText().toUtf8().constData());
     }
     setPlayAction();
 }
@@ -189,7 +189,7 @@ void PlayerWindow::play() {
  * Stop playing current song
  */
 void PlayerWindow::stop() {
-    player->stop();
+    player.stop();
     setPlayAction();
 }
 
@@ -197,7 +197,7 @@ void PlayerWindow::stop() {
  * Set state of play/pause toolbar button and menu item
  */
 void PlayerWindow::setPlayAction() {
-    if (player->isPlaying() && !player->isPaused()) {
+    if (player.isPlaying() && !player.isPaused()) {
         playAction.setIcon(pauseIcon);
         playAction.setText(tr("&Pause"));
     } else {

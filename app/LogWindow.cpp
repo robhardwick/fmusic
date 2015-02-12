@@ -6,7 +6,7 @@ using namespace EvoMu::App;
 /**
  * Create log window
  */
-LogWindow::LogWindow(AppLog *log)
+LogWindow::LogWindow(std::shared_ptr<AppLog> log)
     : QMainWindow(),
       clearAction(tr("C&lear..."), this),
       closeAction(tr("&Close"), this) {
@@ -17,7 +17,7 @@ LogWindow::LogWindow(AppLog *log)
     setGeometry(20, 480, 800, 200);
 
     // Log
-    connect(log, &AppLog::write, this, &LogWindow::append);
+    connect(log.get(), &AppLog::write, this, &LogWindow::append);
 
     // Actions
     clearAction.setShortcuts(QKeySequence::New);

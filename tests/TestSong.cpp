@@ -27,8 +27,8 @@ class TestSong: public QObject {
  * Test instantiation
  */
 void TestSong::create() {
-    TestLog l;
-    Song s(&l, "function f(t)\nreturn 0, 0, 0\nend");
+    auto l = std::make_shared<TestLog>();
+    Song s(l, "function f(t)\nreturn 0, 0, 0\nend");
 }
 
 /**

@@ -5,7 +5,10 @@
 
 using namespace EvoMu::Core;
 
-Player::Player(Log *log)
+/**
+ * Initialise player
+ */
+Player::Player(std::shared_ptr<Log> log)
     : midi(new RtMidiOut()),
       log(log) {
 
@@ -19,15 +22,24 @@ Player::Player(Log *log)
     }
 }
 
+/**
+ * Stop player execution
+ */
 Player::~Player() {
     stop();
 }
 
+/**
+ * Currently playing
+ */
 bool Player::isPlaying() {
     std::unique_lock<std::mutex> lock(mutex);
     return playing;
 }
 
+/**
+ * A song / thread is playing but is paused
+ */
 bool Player::isPaused() {
     std::unique_lock<std::mutex> lock(mutex);
     return paused;

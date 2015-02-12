@@ -8,7 +8,7 @@ using namespace EvoMu::Core;
 /**
  * Initialise lua and load song text
  */
-Song::Song(Log *log, const std::string &str)
+Song::Song(std::shared_ptr<Log> log, const std::string &str)
     : log(log),
       L(luaL_newstate()) {
 

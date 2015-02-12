@@ -27,8 +27,8 @@ class TestPlayer: public QObject {
  * Test instantiation
  */
 void TestPlayer::create() {
-    TestLog l;
-    Player p(&l);
+    auto l = std::make_shared<TestLog>();
+    Player p(l);
 
     QCOMPARE(p.isPlaying(), false);
     QCOMPARE(p.isPaused(), false);

@@ -1,6 +1,7 @@
 #ifndef EVOMU_APP_LOG_WINDOW_H
 #define EVOMU_APP_LOG_WINDOW_H
 
+#include <memory>
 #include <QMainWindow>
 #include <QAction>
 #include <QMenu>
@@ -14,7 +15,7 @@ namespace App {
         Q_OBJECT
 
         public:
-            LogWindow(AppLog *log);
+            LogWindow(std::shared_ptr<AppLog> log);
 
         private slots:
             void append(QString str);

@@ -19,7 +19,7 @@ namespace Core {
     class Player {
 
         public:
-            Player(Log *log);
+            Player(std::shared_ptr<Log> log);
             ~Player();
 
             bool isPlaying();
@@ -35,7 +35,7 @@ namespace Core {
 
             std::unique_ptr<RtMidiOut> midi;
 
-            Log *log;
+            std::shared_ptr<Log> log;
             std::unique_ptr<Song> song;
 
             bool playing = false;

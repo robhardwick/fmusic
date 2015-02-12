@@ -16,7 +16,7 @@ namespace Core {
     class Song {
 
         public:
-            Song(Log *log, const std::string &str);
+            Song(std::shared_ptr<Log> log, const std::string &str);
             bool execute(int32_t offset, std::vector<unsigned char> &message);
 
         private:
@@ -25,7 +25,7 @@ namespace Core {
                     void operator()(lua_State *L);
             };
 
-            Log *log;
+            std::shared_ptr<Log> log;
             std::unique_ptr<lua_State, LuaDeleter> L;
 
     };

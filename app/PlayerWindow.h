@@ -6,7 +6,7 @@
 #include <QMenu>
 #include <QPlainTextEdit>
 
-#include "Log.h"
+#include "AppLog.h"
 #include "Player.h"
 
 namespace EvoMu {
@@ -16,7 +16,7 @@ namespace App {
         Q_OBJECT
 
         public:
-            PlayerWindow(Core::Player *player);
+            PlayerWindow(std::shared_ptr<AppLog> log);
 
         protected:
             void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
@@ -35,6 +35,8 @@ namespace App {
             void loadSong(const QString &fileName);
             bool saveSong(const QString &fileName);
             bool saveIfModified();
+
+            Core::Player player;
 
             QString curSong;
 
@@ -56,8 +58,6 @@ namespace App {
             QPalette palette;
             QFont font;
             QPlainTextEdit textEdit;
-
-            Core::Player *player;
     };
 
 }

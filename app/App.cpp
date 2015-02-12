@@ -1,4 +1,3 @@
-#include <QMessageBox>
 #include "App.h"
 
 using namespace EvoMu::App;
@@ -6,9 +5,9 @@ using namespace EvoMu::App;
 App::App(int &argc, char *argv[])
     : QApplication(argc, argv),
       exitAction(this),
-      player(&log),
-      logWindow(&log),
-      playerWindow(&player) {
+      log(new AppLog()),
+      logWindow(log),
+      playerWindow(log) {
 
     // App configuratiom
     setOrganizationName("EvoMu");
