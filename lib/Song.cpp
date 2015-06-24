@@ -39,7 +39,7 @@ void Song::LuaDeleter::operator()(lua_State *L) {
 /**
  * Execute the song
  */
-bool Song::execute(int32_t offset, std::vector<unsigned char> &message) {
+bool Song::execute(int32_t offset, Message &message) {
     bool success = false;
     int numValues = 1;
 

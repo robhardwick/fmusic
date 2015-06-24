@@ -3,7 +3,6 @@
 
 #include <memory>
 #include <QApplication>
-#include "AppLog.h"
 #include "LogWindow.h"
 #include "PlayerWindow.h"
 
@@ -19,9 +18,7 @@ namespace App {
         private:
             QAction exitAction;
 
-            std::shared_ptr<AppLog> log;
-
-            LogWindow logWindow;
+            std::shared_ptr<LogWindow> logWindow;
             PlayerWindow playerWindow;
     };
 

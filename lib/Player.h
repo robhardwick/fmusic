@@ -6,17 +6,16 @@
 #include <memory>
 #include <thread>
 #include <mutex>
-
-class RtMidiOut;
+#include "Message.h"
 
 namespace EvoMu {
 namespace Core {
 
     class Log;
+    class Instrument;
     class Song;
 
     class Player {
-
         public:
             Player(std::shared_ptr<Log> log);
             ~Player();
@@ -24,17 +23,18 @@ namespace Core {
             bool isPlaying();
             bool isPaused();
 
+            void addInstrument(std::shared_ptr<Instrument> instrument);
+
             void play(const std::string &song);
             void pause();
             void stop();
 
         private:
             void task();
-            bool execute(std::vector<unsigned char> &message);
-
-            std::unique_ptr<RtMidiOut> midi;
+            bool execute(Message &message);
 
             std::shared_ptr<Log> log;
+            std::vector< std::shared_ptr<Instrument> > instruments;
             std::unique_ptr<Song> song;
 
             bool playing = false;

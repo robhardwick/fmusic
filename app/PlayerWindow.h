@@ -5,9 +5,9 @@
 #include <QAction>
 #include <QMenu>
 #include <QPlainTextEdit>
-
-#include "AppLog.h"
+#include "LogWindow.h"
 #include "Player.h"
+#include "MIDI.h"
 
 namespace EvoMu {
 namespace App {
@@ -16,7 +16,7 @@ namespace App {
         Q_OBJECT
 
         public:
-            PlayerWindow(std::shared_ptr<AppLog> log);
+            PlayerWindow(std::shared_ptr<LogWindow> log);
 
         protected:
             void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
@@ -37,6 +37,7 @@ namespace App {
             bool saveIfModified();
 
             Core::Player player;
+            std::shared_ptr<Core::Instruments::MIDI> midi;
 
             QString curSong;
 

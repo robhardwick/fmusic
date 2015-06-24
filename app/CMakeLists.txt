@@ -27,7 +27,6 @@ add_executable(EvoMu MACOSX_BUNDLE
     ${EvoMu_ICON}
     main.cpp
     App.cpp
-    AppLog.cpp
     PlayerWindow.cpp
     LogWindow.cpp)
 

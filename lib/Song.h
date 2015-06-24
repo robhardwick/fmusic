@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <memory>
 #include <string>
-#include <vector>
+#include "Message.h"
 
 struct lua_State;
 
@@ -14,10 +14,9 @@ namespace Core {
     class Log;
 
     class Song {
-
         public:
             Song(std::shared_ptr<Log> log, const std::string &str);
-            bool execute(int32_t offset, std::vector<unsigned char> &message);
+            bool execute(int32_t offset, Message &message);
 
         private:
             class LuaDeleter {

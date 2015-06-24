@@ -1,6 +1,5 @@
 #include <QtWidgets>
 #include "PlayerWindow.h"
-#include "App.h"
 
 using namespace EvoMu::App;
 
@@ -14,9 +13,10 @@ const char *DEFAULT = "function f(t)\n"
 /**
  * Create player/editor window
  */
-PlayerWindow::PlayerWindow(std::shared_ptr<AppLog> log)
+PlayerWindow::PlayerWindow(std::shared_ptr<LogWindow> log)
     : QMainWindow(),
       player(log),
+      midi(new EvoMu::Core::Instruments::MIDI(log)),
       playIcon(":/play.svg"),
       pauseIcon(":/pause.svg"),
       newAction(QIcon(":/new.svg"), tr("&New"), this),
@@ -26,6 +26,9 @@ PlayerWindow::PlayerWindow(std::shared_ptr<AppLog> log)
       playAction(this),
       stopAction(QIcon(":/stop.svg"), tr("S&top"), this),
       closeAction(tr("&Close"), this) {
+
+    // Initialise MIDI
+    player.addInstrument(midi);
 
     // Window configuration
     setUnifiedTitleAndToolBarOnMac(true);

@@ -1,8 +1,8 @@
 #include <chrono>
-#include <RtMidi.h>
 #include "Player.h"
 #include "Song.h"
 #include "Log.h"
+#include "Instrument.h"
 
 using namespace EvoMu::Core;
 
@@ -10,24 +10,20 @@ using namespace EvoMu::Core;
  * Initialise player
  */
 Player::Player(std::shared_ptr<Log> log)
-    : midi(new RtMidiOut()),
-      log(log) {
-
-    // Check available ports.
-    unsigned int numPorts = midi->getPortCount();
-    if (numPorts == 0) {
-        log->message(LogStatus::Error, "No MIDI ports available");
-    } else {
-        // Open first available port.
-        midi->openPort(0);
-    }
-}
+    : log(log) {}
 
 /**
  * Stop player execution
  */
 Player::~Player() {
     stop();
+}
+
+/**
+ * Add instrument
+ */
+void Player::addInstrument(std::shared_ptr<Instrument> instrument) {
+    instruments.push_back(instrument);
 }
 
 /**
@@ -112,9 +108,14 @@ void Player::task() {
 
             // Attempt to execute song
             if (song->execute(time.count(), message)) {
-                // Send MIDI message
-                midi->sendMessage(&message);
+
+                // Iterate over instruments, sending the message to each
+                for (auto instrument : instruments) {
+                    instrument->message(message);
+                }
+
             }
+
         }
 
         // Set next execution time

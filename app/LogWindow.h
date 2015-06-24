@@ -6,16 +6,20 @@
 #include <QAction>
 #include <QMenu>
 #include <QPlainTextEdit>
-#include "AppLog.h"
+#include "Log.h"
 
 namespace EvoMu {
 namespace App {
 
-    class LogWindow : public QMainWindow {
+    class LogWindow : public QMainWindow, public EvoMu::Core::Log {
         Q_OBJECT
 
         public:
-            LogWindow(std::shared_ptr<AppLog> log);
+            LogWindow();
+            void message(EvoMu::Core::LogStatus status, const std::string &message);
+
+        signals:
+            void write(QString str);
 
         private slots:
             void append(QString str);

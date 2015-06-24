@@ -13,6 +13,7 @@ include_directories(${RTMIDI_INCLUDE_DIR})
 add_library(libevomu STATIC
     Player.cpp
     Song.cpp
+    MIDI.cpp
 )
 
 # Link LuaJIT and RtMidi

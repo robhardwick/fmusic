@@ -1,3 +1,6 @@
+#include <iostream>
+#include <sstream>
+#include <QDateTime>
 #include <QMenuBar>
 #include "LogWindow.h"
 
@@ -6,7 +9,7 @@ using namespace EvoMu::App;
 /**
  * Create log window
  */
-LogWindow::LogWindow(std::shared_ptr<AppLog> log)
+LogWindow::LogWindow()
     : QMainWindow(),
       clearAction(tr("C&lear..."), this),
       closeAction(tr("&Close"), this) {
@@ -17,7 +20,7 @@ LogWindow::LogWindow(std::shared_ptr<AppLog> log)
     setGeometry(20, 480, 800, 200);
 
     // Log
-    connect(log.get(), &AppLog::write, this, &LogWindow::append);
+    connect(this, &LogWindow::write, this, &LogWindow::append);
 
     // Actions
     clearAction.setShortcuts(QKeySequence::New);
@@ -45,6 +48,23 @@ LogWindow::LogWindow(std::shared_ptr<AppLog> log)
     text.setCurrentCharFormat(format);
     text.setTabStopWidth(200);
     text.setReadOnly(true);
+}
+
+const char *logStatusName[] = {"error", "warn", "info", "debug"};
+
+/**
+ * Format log message and send "write" signal
+ */
+void LogWindow::message(EvoMu::Core::LogStatus status, const std::string &message) {
+    // Get current date and time
+    QDateTime dateTime(QDateTime::currentDateTime());
+    std::string dateTimeStr = dateTime.toString("yyyy-MM-ddThh:mm:ss.zzz").toStdString();
+
+    // Format as "[<timestamp>][<status>] message"
+    std::ostringstream out;
+    out << '[' << dateTimeStr << "][" << logStatusName[(int)status] << "] " << message;
+
+    emit write(QString(out.str().c_str()));
 }
 
 /**
