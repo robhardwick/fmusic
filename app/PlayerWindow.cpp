@@ -25,7 +25,8 @@ PlayerWindow::PlayerWindow(std::shared_ptr<LogWindow> log)
       saveAsAction(tr("Save &As..."), this),
       playAction(this),
       stopAction(QIcon(":/stop.svg"), tr("S&top"), this),
-      closeAction(tr("&Close"), this) {
+      closeAction(tr("&Close"), this),
+      highlighter(textEdit.document()) {
 
     // Initialise MIDI
     player.addInstrument(midi);
@@ -87,21 +88,14 @@ PlayerWindow::PlayerWindow(std::shared_ptr<LogWindow> log)
     toolbar->addAction(&playAction);
     toolbar->addAction(&stopAction);
 
-    // Text widget colour palette
-    palette.setColor(QPalette::Base, QColor::fromRgb(255,255,255));
-    palette.setColor(QPalette::Text, QColor::fromRgb(0,0,0));
-
     // Text widget font
     font.setFamily("Menlo");
     font.setStyleHint(QFont::Monospace);
     font.setFixedPitch(true);
     font.setPointSize(12);
-
-    // Text widget configuration
-    textEdit.setPalette(palette);
     textEdit.setFont(font);
 
-    // Set tab width
+    // Text widget tab width
     QFontMetrics metrics(font);
     textEdit.setTabStopWidth(4 * metrics.width(' '));
 

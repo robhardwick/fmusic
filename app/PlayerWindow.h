@@ -6,6 +6,7 @@
 #include <QMenu>
 #include <QPlainTextEdit>
 #include "LogWindow.h"
+#include "SyntaxHighlight.h"
 #include "Player.h"
 #include "MIDI.h"
 
@@ -56,9 +57,10 @@ namespace App {
             QMenu *playMenu;
             QToolBar *toolbar;
 
-            QPalette palette;
             QFont font;
             QPlainTextEdit textEdit;
+
+            SyntaxHighlight highlighter;
     };
 
 }

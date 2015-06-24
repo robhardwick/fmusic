@@ -28,6 +28,7 @@ add_executable(EvoMu MACOSX_BUNDLE
     main.cpp
     App.cpp
     PlayerWindow.cpp
+    SyntaxHighlight.cpp
     LogWindow.cpp)
 
 # Link static library and QT

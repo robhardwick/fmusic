@@ -7,6 +7,7 @@ namespace EvoMu {
 namespace Core {
 
     class Instrument {
+
         public:
             virtual ~Instrument() {}
             virtual void message(Message &message) = 0;

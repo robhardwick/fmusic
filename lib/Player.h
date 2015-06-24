@@ -16,6 +16,7 @@ namespace Core {
     class Song;
 
     class Player {
+
         public:
             Player(std::shared_ptr<Log> log);
             ~Player();
