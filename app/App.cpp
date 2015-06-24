@@ -6,7 +6,8 @@ App::App(int &argc, char *argv[])
     : QApplication(argc, argv),
       exitAction(this),
       logWindow(new LogWindow()),
-      playerWindow(logWindow) {
+      visualiserWindow(new VisualiserWindow(logWindow)),
+      playerWindow(logWindow, visualiserWindow) {
 
     // App configuratiom
     setOrganizationName("EvoMu");
@@ -16,7 +17,8 @@ App::App(int &argc, char *argv[])
     exitAction.setShortcuts(QKeySequence::Quit);
     connect(&exitAction, SIGNAL(triggered()), this, SLOT(quit()));
 
-    // Show log and player windows
+    // Show log, visualiser and player windows
     logWindow->show();
+    visualiserWindow->show();
     playerWindow.show();
 }

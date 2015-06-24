@@ -4,6 +4,7 @@
 #include <memory>
 #include <QApplication>
 #include "LogWindow.h"
+#include "VisualiserWindow.h"
 #include "PlayerWindow.h"
 
 namespace EvoMu {
@@ -19,6 +20,7 @@ namespace App {
             QAction exitAction;
 
             std::shared_ptr<LogWindow> logWindow;
+            std::shared_ptr<VisualiserWindow> visualiserWindow;
             PlayerWindow playerWindow;
     };
 

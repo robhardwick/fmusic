@@ -6,6 +6,7 @@
 #include <QMenu>
 #include <QPlainTextEdit>
 #include "LogWindow.h"
+#include "VisualiserWindow.h"
 #include "SyntaxHighlight.h"
 #include "Player.h"
 #include "MIDI.h"
@@ -17,7 +18,7 @@ namespace App {
         Q_OBJECT
 
         public:
-            PlayerWindow(std::shared_ptr<LogWindow> log);
+            PlayerWindow(std::shared_ptr<LogWindow> log, std::shared_ptr<VisualiserWindow> visualiser);
 
         protected:
             void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;

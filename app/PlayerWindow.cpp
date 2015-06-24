@@ -13,7 +13,7 @@ const char *DEFAULT = "function f(t)\n"
 /**
  * Create player/editor window
  */
-PlayerWindow::PlayerWindow(std::shared_ptr<LogWindow> log)
+PlayerWindow::PlayerWindow(std::shared_ptr<LogWindow> log, std::shared_ptr<VisualiserWindow> visualiser)
     : QMainWindow(),
       player(log),
       midi(new EvoMu::Core::Instruments::MIDI(log)),
@@ -30,6 +30,9 @@ PlayerWindow::PlayerWindow(std::shared_ptr<LogWindow> log)
 
     // Initialise MIDI
     player.addInstrument(midi);
+
+    // Initialise visualiser
+    player.addInstrument(visualiser);
 
     // Window configuration
     setUnifiedTitleAndToolBarOnMac(true);
