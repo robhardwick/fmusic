@@ -15,9 +15,6 @@ if [ ! -d "$BUILD" ]; then
     mkdir $BUILD
 fi
 
-# For homebrew on os x
-export CMAKE_PREFIX_PATH="/usr/local/opt/qt5:/usr/local/opt/luajit"
-
 # Build
 cmake -B$BUILD -H. -DCMAKE_BUILD_TYPE=debug
 make --directory=$BUILD

@@ -6,7 +6,7 @@ endif()
 # QT
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
-find_package(Qt5Test)
+find_package(Qt5Test PATHS ${EVOMU_QT_PATHS})
 include_directories(${Qt5Test_INCLUDE_DIRS})
 
 # Use includes from app and lib

@@ -6,7 +6,7 @@ endif()
 # QT
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
-find_package(Qt5Widgets)
+find_package(Qt5Widgets PATHS ${EVOMU_QT_PATHS})
 include_directories(${Qt5Widgets_INCLUDE_DIRS})
 
 # Resources
@@ -32,6 +32,8 @@ add_executable(EvoMu MACOSX_BUNDLE
     VisualiserWindow.cpp
     LogWindow.cpp)
 
-# Link static library and QT
+# Link static library
 target_link_libraries(EvoMu libevomu)
-target_link_libraries(EvoMu ${Qt5Widgets_LIBRARIES})
+
+# Link QT modules
+qt5_use_modules(EvoMu Widgets OpenGL)
