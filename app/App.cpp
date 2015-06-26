@@ -5,9 +5,7 @@ using namespace EvoMu::App;
 App::App(int &argc, char *argv[])
     : QApplication(argc, argv),
       exitAction(this),
-      logWindow(new LogWindow()),
-      visualiserWindow(new VisualiserWindow(logWindow)),
-      playerWindow(logWindow, visualiserWindow) {
+      playerWindow() {
 
     // App configuratiom
     setOrganizationName("EvoMu");
@@ -17,8 +15,6 @@ App::App(int &argc, char *argv[])
     exitAction.setShortcuts(QKeySequence::Quit);
     connect(&exitAction, SIGNAL(triggered()), this, SLOT(quit()));
 
-    // Show log, visualiser and player windows
-    logWindow->show();
-    visualiserWindow->show();
+    // Show player windows
     playerWindow.show();
 }

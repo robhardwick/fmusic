@@ -18,7 +18,7 @@ namespace App {
         Q_OBJECT
 
         public:
-            PlayerWindow(std::shared_ptr<LogWindow> log, std::shared_ptr<VisualiserWindow> visualiser);
+            PlayerWindow();
 
         protected:
             void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
@@ -37,6 +37,9 @@ namespace App {
             void loadSong(const QString &fileName);
             bool saveSong(const QString &fileName);
             bool saveIfModified();
+
+            std::shared_ptr<LogWindow> logWindow;
+            std::shared_ptr<VisualiserWindow> visualiserWindow;
 
             Core::Player player;
             std::shared_ptr<Core::Instruments::MIDI> midi;

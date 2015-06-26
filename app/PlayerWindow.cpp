@@ -13,10 +13,12 @@ const char *DEFAULT = "function f(t)\n"
 /**
  * Create player/editor window
  */
-PlayerWindow::PlayerWindow(std::shared_ptr<LogWindow> log, std::shared_ptr<VisualiserWindow> visualiser)
+PlayerWindow::PlayerWindow()
     : QMainWindow(),
-      player(log),
-      midi(new EvoMu::Core::Instruments::MIDI(log)),
+      logWindow(new LogWindow()),
+      visualiserWindow(new VisualiserWindow(logWindow)),
+      player(logWindow),
+      midi(new EvoMu::Core::Instruments::MIDI(logWindow)),
       playIcon(":/play.svg"),
       pauseIcon(":/pause.svg"),
       newAction(QIcon(":/new.svg"), tr("&New"), this),
@@ -28,11 +30,15 @@ PlayerWindow::PlayerWindow(std::shared_ptr<LogWindow> log, std::shared_ptr<Visua
       closeAction(tr("&Close"), this),
       highlighter(textEdit.document()) {
 
+    // Show log window
+    logWindow->show();
+
+    // Show visualiser window
+    player.addInstrument(visualiserWindow);
+    visualiserWindow->show();
+
     // Initialise MIDI
     player.addInstrument(midi);
-
-    // Initialise visualiser
-    player.addInstrument(visualiser);
 
     // Window configuration
     setUnifiedTitleAndToolBarOnMac(true);
