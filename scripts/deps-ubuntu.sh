@@ -15,10 +15,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes \
     libxcb-icccm4-dev libxcb-sync0-dev libxcb-xfixes0-dev \
     libxcb-shape0-dev libxcb-randr0-dev libxcb-render-util0-dev \
     libluajit-5.1-dev librtmidi-dev \
-    librtaudio-dev jackd
-
-# Install GCC 4.8
-sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes g++-4.8
+    librtaudio-dev jackd \
+    g++-4.8
 
 # Set GCC 4.8 as default
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
