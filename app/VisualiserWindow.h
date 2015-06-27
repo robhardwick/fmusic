@@ -4,6 +4,7 @@
 #include <memory>
 #include <QMainWindow>
 #include <QOpenGLWidget>
+#include <QPainter>
 #include <QBrush>
 #include "Instrument.h"
 #include "Log.h"
@@ -24,18 +25,20 @@ namespace App {
             void render();
 
         private:
+            static const int BLOCK_WIDTH;
+            static const int BLOCK_HEIGHT;
+            static const float BLOCKS_X;
+            static const float BLOCKS_Y;
+
             std::shared_ptr<Core::Log> log;
 
             QOpenGLWidget canvas;
+            QPainter painter;
 
             QBrush backgroundBrush;
             QBrush blockBrush;
 
-            struct Block {
-                int x, y;
-            };
-
-            QVector<Block> blocks;
+            QVector<QPoint> blocks;
     };
 
 }

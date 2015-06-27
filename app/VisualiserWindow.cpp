@@ -1,14 +1,15 @@
 #include <QTimer>
-#include <QPainter>
 #include "VisualiserWindow.h"
 
 using namespace EvoMu::App;
 
-#define WIN_WIDTH 600
-#define WIN_HEIGHT 400
-
-#define BLOCK_WIDTH 10
-#define BLOCK_HEIGHT 10
+/**
+ * Constants
+ */
+const int VisualiserWindow::BLOCK_WIDTH = 10;
+const int VisualiserWindow::BLOCK_HEIGHT = 10;
+const float VisualiserWindow::BLOCKS_X = 1000.0;
+const float VisualiserWindow::BLOCKS_Y = 128.0;
 
 /**
  * Create visualiser window
@@ -20,10 +21,7 @@ VisualiserWindow::VisualiserWindow(std::shared_ptr<Core::Log> log)
 
     // Window configuration
     setWindowIconText(tr("Visualiser"));
-    setGeometry(650, 20, WIN_WIDTH, WIN_HEIGHT);
-
-    // Canvas configuration
-    canvas.setFixedSize(WIN_WIDTH, WIN_HEIGHT);
+    setGeometry(650, 20, 600, 400);
 
     // Brushes
     backgroundBrush = QBrush(Qt::black);
@@ -32,7 +30,7 @@ VisualiserWindow::VisualiserWindow(std::shared_ptr<Core::Log> log)
     // Render timeout
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(render()));
-    timer->start(50);
+    timer->start(20);
 }
 
 VisualiserWindow::~VisualiserWindow() = default;
@@ -42,26 +40,37 @@ VisualiserWindow::~VisualiserWindow() = default;
  */
 void VisualiserWindow::render() {
 
+    // Get current window size
+    QSize winSize = size();
+
+    // Set canvas size
+    canvas.setFixedSize(winSize);
+
     // Create painter
-    QPainter painter;
     painter.begin(&canvas);
     painter.setRenderHint(QPainter::Antialiasing);
 
     // Paint background
-    painter.fillRect(0, 0, WIN_WIDTH, WIN_HEIGHT, backgroundBrush);
+    painter.fillRect(0, 0, winSize.width(), winSize.height(), backgroundBrush);
 
     // Iterate over blocks
-    QMutableVectorIterator<Block> it(blocks);
+    QMutableVectorIterator<QPoint> it(blocks);
     while (it.hasNext()) {
-        Block block = it.next();
+        QPoint block = it.next();
 
         // Paint block
-        painter.fillRect(block.x, block.y, BLOCK_WIDTH, BLOCK_HEIGHT, blockBrush);
+        painter.fillRect(
+            ((block.x() / BLOCKS_X) * winSize.width()),
+            ((block.y() / BLOCKS_Y) * winSize.height()),
+            BLOCK_WIDTH,
+            BLOCK_HEIGHT,
+            blockBrush
+        );
 
         // Move block right
-        block.x++;
+        block.rx()++;
 
-        if (block.x + BLOCK_WIDTH < WIN_WIDTH) {
+        if (block.x() < BLOCKS_X) {
             // Update block
             it.setValue(block);
         } else {
@@ -79,8 +88,5 @@ void VisualiserWindow::render() {
  * Add MIDI message to visualisation
  */
 void VisualiserWindow::message(Core::Message &message) {
-    blocks.push_back({
-        .x = 0,
-        .y = (int)((message[1] / 128.0) * WIN_HEIGHT)
-    });
+    blocks.push_back(QPoint(0, message[1]));
 }
