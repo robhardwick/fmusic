@@ -17,6 +17,7 @@ add_library(libevomu STATIC
     Player.cpp
     Song.cpp
     MIDI.cpp
+    Lua/Logger.cpp
 )
 
 # Link Pthreads, LuaJIT and RtMidi

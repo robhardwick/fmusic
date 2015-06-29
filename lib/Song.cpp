@@ -2,6 +2,7 @@
 #include <lua.hpp>
 #include "Song.h"
 #include "Log.h"
+#include "Lua/Logger.h"
 
 using namespace EvoMu::Core;
 
@@ -17,6 +18,11 @@ Song::Song(std::shared_ptr<Log> log, const std::string &str)
 
     // Load lua core libs
     luaL_openlibs(L.get());
+
+    // Register logger
+    lua_pushlightuserdata(L.get(), log.get());
+    lua_pushcclosure(L.get(), Lua::Logger, 1);
+    lua_setglobal(L.get(), "log");
 
     // Load song
     if (luaL_loadstring(L.get(), str.c_str())) {

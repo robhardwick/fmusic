@@ -1,6 +1,8 @@
 #ifndef EVOMU_CORE_LOG_H
 #define EVOMU_CORE_LOG_H
 
+#include <string>
+
 namespace EvoMu {
 namespace Core {
 
