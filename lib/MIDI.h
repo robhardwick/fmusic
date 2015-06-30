@@ -1,12 +1,12 @@
-#ifndef EVOMU_CORE_MIDI_INSTRUMENT_H
-#define EVOMU_CORE_MIDI_INSTRUMENT_H
+#ifndef FMUSIC_CORE_MIDI_INSTRUMENT_H
+#define FMUSIC_CORE_MIDI_INSTRUMENT_H
 
 #include <memory>
 #include "Instrument.h"
 
 class RtMidiOut;
 
-namespace EvoMu {
+namespace fMusic {
 namespace Core {
 
     class Log;

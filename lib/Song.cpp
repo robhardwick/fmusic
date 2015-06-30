@@ -4,7 +4,7 @@
 #include "Log.h"
 #include "Lua/Logger.h"
 
-using namespace EvoMu::Core;
+using namespace fMusic::Core;
 
 // Map MIDI message index to name
 const char *MESSAGE_VALUE_NAME[] = {"status", "data 1", "data 2"};

@@ -1,5 +1,5 @@
-#ifndef EVOMU_TESTS_TEST_H
-#define EVOMU_TESTS_TEST_H
+#ifndef FMUSIC_TESTS_TEST_H
+#define FMUSIC_TESTS_TEST_H
 
 #include <memory>
 #include <QtTest/QtTest>
@@ -8,15 +8,15 @@
 /**
  * Stub logging for tests
  */
-class TestLog: public EvoMu::Core::Log {
+class TestLog: public fMusic::Core::Log {
     public:
-        void message(EvoMu::Core::LogStatus status, const std::string &message);
+        void message(fMusic::Core::LogStatus status, const std::string &message);
 };
 
 /**
  * Base test case
  */
-class EvoMuTest: public QObject {
+class fMusicTest: public QObject {
     Q_OBJECT
 
     protected slots:

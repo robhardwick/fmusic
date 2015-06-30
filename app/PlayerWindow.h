@@ -1,5 +1,5 @@
-#ifndef EVOMU_APP_PLAYER_WINDOW_H
-#define EVOMU_APP_PLAYER_WINDOW_H
+#ifndef FMUSIC_APP_PLAYER_WINDOW_H
+#define FMUSIC_APP_PLAYER_WINDOW_H
 
 #include <QMainWindow>
 #include <QAction>
@@ -11,7 +11,7 @@
 #include "Player.h"
 #include "MIDI.h"
 
-namespace EvoMu {
+namespace fMusic {
 namespace App {
 
     class PlayerWindow : public QMainWindow {

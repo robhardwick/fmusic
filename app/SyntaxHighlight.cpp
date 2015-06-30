@@ -1,6 +1,6 @@
 #include "SyntaxHighlight.h"
 
-using namespace EvoMu::App;
+using namespace fMusic::App;
 
 /**
  * Initialise syntax highlight rules

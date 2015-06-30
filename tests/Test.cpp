@@ -3,11 +3,11 @@
 /**
  * Dummy log implementation
  */
-void TestLog::message(EvoMu::Core::LogStatus status, const std::string &message) {}
+void TestLog::message(fMusic::Core::LogStatus status, const std::string &message) {}
 
 /**
  * Create shared Log object
  */
-void EvoMuTest::initTestCase() {
+void fMusicTest::initTestCase() {
     l = std::make_shared<TestLog>();
 }

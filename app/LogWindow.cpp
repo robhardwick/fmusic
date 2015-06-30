@@ -4,7 +4,7 @@
 #include <QMenuBar>
 #include "LogWindow.h"
 
-using namespace EvoMu::App;
+using namespace fMusic::App;
 
 /**
  * Create log window
@@ -55,7 +55,7 @@ const char *logStatusName[] = {"error", "warn", "info", "debug"};
 /**
  * Format log message and send "write" signal
  */
-void LogWindow::message(EvoMu::Core::LogStatus status, const std::string &message) {
+void LogWindow::message(fMusic::Core::LogStatus status, const std::string &message) {
     // Get current date and time
     QDateTime dateTime(QDateTime::currentDateTime());
     std::string dateTimeStr = dateTime.toString("yyyy-MM-ddThh:mm:ss.zzz").toStdString();

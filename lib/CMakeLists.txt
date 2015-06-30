@@ -13,7 +13,7 @@ find_package(RtMidi REQUIRED)
 include_directories(${RTMIDI_INCLUDE_DIR})
 
 # Static Library
-add_library(libevomu STATIC
+add_library(libfmusic STATIC
     Player.cpp
     Song.cpp
     MIDI.cpp
@@ -21,6 +21,6 @@ add_library(libevomu STATIC
 )
 
 # Link Pthreads, LuaJIT and RtMidi
-target_link_libraries(libevomu ${CMAKE_THREAD_LIBS_INIT})
-target_link_libraries(libevomu ${LUAJIT_LIBRARIES})
-target_link_libraries(libevomu ${RTMIDI_LIBRARIES})
+target_link_libraries(libfmusic ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(libfmusic ${LUAJIT_LIBRARIES})
+target_link_libraries(libfmusic ${RTMIDI_LIBRARIES})

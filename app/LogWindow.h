@@ -1,5 +1,5 @@
-#ifndef EVOMU_APP_LOG_WINDOW_H
-#define EVOMU_APP_LOG_WINDOW_H
+#ifndef FMUSIC_APP_LOG_WINDOW_H
+#define FMUSIC_APP_LOG_WINDOW_H
 
 #include <memory>
 #include <QMainWindow>
@@ -8,15 +8,15 @@
 #include <QPlainTextEdit>
 #include "Log.h"
 
-namespace EvoMu {
+namespace fMusic {
 namespace App {
 
-    class LogWindow : public QMainWindow, public EvoMu::Core::Log {
+    class LogWindow : public QMainWindow, public fMusic::Core::Log {
         Q_OBJECT
 
         public:
             LogWindow();
-            void message(EvoMu::Core::LogStatus status, const std::string &message);
+            void message(fMusic::Core::LogStatus status, const std::string &message);
 
         signals:
             void write(QString str);

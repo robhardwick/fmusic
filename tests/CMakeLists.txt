@@ -1,4 +1,4 @@
-# Fix linked LuaJIT on OS X (via libevomu)
+# Fix linked LuaJIT on OS X (via libfmusic)
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pagezero_size 10000 -image_base 100000000")
 endif()
@@ -6,7 +6,7 @@ endif()
 # QT
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
-find_package(Qt5Test PATHS ${EVOMU_QT_PATHS})
+find_package(Qt5Test PATHS ${FMUSIC_QT_PATHS})
 include_directories(${Qt5Test_INCLUDE_DIRS})
 
 # Use includes from app and lib
@@ -20,8 +20,8 @@ foreach(TEST_NAME Player Song)
     add_executable(Test${TEST_NAME} Test.cpp Test${TEST_NAME}.cpp)
     add_test(Test${TEST_NAME} Test${TEST_NAME})
 
-    # Link with QT5Test and libevomu
+    # Link with QT5Test and libfmusic
     target_link_libraries(Test${TEST_NAME} ${Qt5Test_LIBRARIES})
-    target_link_libraries(Test${TEST_NAME} libevomu)
+    target_link_libraries(Test${TEST_NAME} libfmusic)
 
 endforeach()

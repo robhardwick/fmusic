@@ -2,12 +2,12 @@
 #include "Test.h"
 #include "Player.h"
 
-using namespace EvoMu::Core;
+using namespace fMusic::Core;
 
 /**
- * Test the EvoMu::Core::Player class
+ * Test the fMusic::Core::Player class
  */
-class TestPlayer: public EvoMuTest {
+class TestPlayer: public fMusicTest {
     Q_OBJECT
 
     private slots:

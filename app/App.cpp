@@ -1,6 +1,6 @@
 #include "App.h"
 
-using namespace EvoMu::App;
+using namespace fMusic::App;
 
 App::App(int &argc, char *argv[])
     : QApplication(argc, argv),
@@ -8,8 +8,8 @@ App::App(int &argc, char *argv[])
       playerWindow() {
 
     // App configuratiom
-    setOrganizationName("EvoMu");
-    setApplicationName("EvoMu");
+    setOrganizationName("ƒMusic");
+    setApplicationName("ƒMusic");
 
     // Quit application signal
     exitAction.setShortcuts(QKeySequence::Quit);

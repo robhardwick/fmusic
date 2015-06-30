@@ -1,9 +1,9 @@
-#ifndef EVOMU_CORE_LUA_LOGGER_H
-#define EVOMU_CORE_LUA_LOGGER_H
+#ifndef FMUSIC_CORE_LUA_LOGGER_H
+#define FMUSIC_CORE_LUA_LOGGER_H
 
 struct lua_State;
 
-namespace EvoMu {
+namespace fMusic {
 namespace Core {
 namespace Lua {
 

@@ -1,12 +1,12 @@
 #include "Test.h"
 #include "Song.h"
 
-using namespace EvoMu::Core;
+using namespace fMusic::Core;
 
 /**
- * Test the EvoMu::Core::Song class
+ * Test the fMusic::Core::Song class
  */
-class TestSong: public EvoMuTest {
+class TestSong: public fMusicTest {
     Q_OBJECT
 
     private slots:

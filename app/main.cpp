@@ -1,6 +1,6 @@
 #include "App.h"
 
-using namespace EvoMu::App;
+using namespace fMusic::App;
 
 int main(int argc, char *argv[]) {
     App app(argc, argv);

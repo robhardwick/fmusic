@@ -4,7 +4,7 @@
 #include "Log.h"
 #include "Instrument.h"
 
-using namespace EvoMu::Core;
+using namespace fMusic::Core;
 
 /**
  * Initialise player

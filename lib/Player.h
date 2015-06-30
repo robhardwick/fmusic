@@ -1,5 +1,5 @@
-#ifndef EVOMU_CORE_PLAYER_H
-#define EVOMU_CORE_PLAYER_H
+#ifndef FMUSIC_CORE_PLAYER_H
+#define FMUSIC_CORE_PLAYER_H
 
 #include <string>
 #include <vector>
@@ -8,7 +8,7 @@
 #include <mutex>
 #include "Message.h"
 
-namespace EvoMu {
+namespace fMusic {
 namespace Core {
 
     class Log;

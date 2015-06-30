@@ -1,9 +1,9 @@
-#ifndef EVOMU_CORE_INSTRUMENT_H
-#define EVOMU_CORE_INSTRUMENT_H
+#ifndef FMUSIC_CORE_INSTRUMENT_H
+#define FMUSIC_CORE_INSTRUMENT_H
 
 #include "Message.h"
 
-namespace EvoMu {
+namespace fMusic {
 namespace Core {
 
     class Instrument {

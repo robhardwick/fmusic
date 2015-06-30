@@ -1,5 +1,5 @@
-#ifndef EVOMU_APP_VISUALISER_WINDOW_H
-#define EVOMU_APP_VISUALISER_WINDOW_H
+#ifndef FMUSIC_APP_VISUALISER_WINDOW_H
+#define FMUSIC_APP_VISUALISER_WINDOW_H
 
 #include <memory>
 #include <QMainWindow>
@@ -9,7 +9,7 @@
 #include "Instrument.h"
 #include "Log.h"
 
-namespace EvoMu {
+namespace fMusic {
 namespace App {
 
     class VisualiserWindow : public QMainWindow, public Core::Instrument  {

@@ -24,5 +24,5 @@ if [[ $1 == "test" ]]; then
     CTEST_OUTPUT_ON_FAILURE=TRUE make --directory=$BUILD test
 else
     # Run app
-    $BUILD/app/EvoMu.app/Contents/MacOS/EvoMu;
+    $BUILD/app/fMusic.app/Contents/MacOS/fMusic;
 fi

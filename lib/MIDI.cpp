@@ -3,7 +3,7 @@
 #include "MIDI.h"
 #include "Log.h"
 
-using namespace EvoMu::Core::Instruments;
+using namespace fMusic::Core::Instruments;
 
 /**
  * Initialise MIDI Instrument

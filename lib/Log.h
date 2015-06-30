@@ -1,9 +1,9 @@
-#ifndef EVOMU_CORE_LOG_H
-#define EVOMU_CORE_LOG_H
+#ifndef FMUSIC_CORE_LOG_H
+#define FMUSIC_CORE_LOG_H
 
 #include <string>
 
-namespace EvoMu {
+namespace fMusic {
 namespace Core {
 
     enum class LogStatus { Error, Warning, Info, Debug };

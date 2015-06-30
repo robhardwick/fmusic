@@ -1,5 +1,5 @@
-#ifndef EVOMU_CORE_SONG_H
-#define EVOMU_CORE_SONG_H
+#ifndef FMUSIC_CORE_SONG_H
+#define FMUSIC_CORE_SONG_H
 
 #include <cstdint>
 #include <memory>
@@ -8,7 +8,7 @@
 
 struct lua_State;
 
-namespace EvoMu {
+namespace fMusic {
 namespace Core {
 
     class Log;

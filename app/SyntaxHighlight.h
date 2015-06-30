@@ -1,12 +1,12 @@
-#ifndef EVOMU_APP_SYNTAX_HIGHLIGHT_H
-#define EVOMU_APP_SYNTAX_HIGHLIGHT_H
+#ifndef FMUSIC_APP_SYNTAX_HIGHLIGHT_H
+#define FMUSIC_APP_SYNTAX_HIGHLIGHT_H
 
 #include <QSyntaxHighlighter>
 #include <QTextCharFormat>
 
 class QTextDocument;
 
-namespace EvoMu {
+namespace fMusic {
 namespace App {
 
     class SyntaxHighlight : public QSyntaxHighlighter {

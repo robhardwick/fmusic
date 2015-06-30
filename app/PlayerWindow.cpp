@@ -1,7 +1,7 @@
 #include <QtWidgets>
 #include "PlayerWindow.h"
 
-using namespace EvoMu::App;
+using namespace fMusic::App;
 
 const char *DEFAULT = "function f(t)\n"
                       "\tif (t % 300) == 0 then\n"
@@ -18,7 +18,7 @@ PlayerWindow::PlayerWindow()
       logWindow(new LogWindow()),
       visualiserWindow(new VisualiserWindow(logWindow)),
       player(logWindow),
-      midi(new EvoMu::Core::Instruments::MIDI(logWindow)),
+      midi(new fMusic::Core::Instruments::MIDI(logWindow)),
       playIcon(":/play.svg"),
       pauseIcon(":/pause.svg"),
       newAction(QIcon(":/new.svg"), tr("&New"), this),

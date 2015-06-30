@@ -1,11 +1,11 @@
-#ifndef EVOMU_APP_APP_H
-#define EVOMU_APP_APP_H
+#ifndef FMUSIC_APP_APP_H
+#define FMUSIC_APP_APP_H
 
 #include <memory>
 #include <QApplication>
 #include "PlayerWindow.h"
 
-namespace EvoMu {
+namespace fMusic {
 namespace App {
 
     class App : public QApplication {
