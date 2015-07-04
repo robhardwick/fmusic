@@ -22,6 +22,9 @@ make --directory=$BUILD
 if [[ $1 == "test" ]]; then
     # Run tests
     CTEST_OUTPUT_ON_FAILURE=TRUE make --directory=$BUILD test
+elif [[ $1 == "cli" ]]; then
+    # Run CLI
+    $BUILD/cli/fmu $2;
 else
     # Run app
     $BUILD/app/fMusic.app/Contents/MacOS/fMusic;
