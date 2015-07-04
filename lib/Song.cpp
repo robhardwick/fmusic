@@ -3,6 +3,7 @@
 #include "Song.h"
 #include "Log.h"
 #include "Lua/Logger.h"
+#include "Lua/MIDI.h"
 
 using namespace fMusic::Core;
 
@@ -23,6 +24,11 @@ Song::Song(std::shared_ptr<Log> log, const std::string &str)
     lua_pushlightuserdata(L.get(), log.get());
     lua_pushcclosure(L.get(), Lua::Logger, 1);
     lua_setglobal(L.get(), "log");
+
+    // Register MIDI file
+    lua_pushlightuserdata(L.get(), log.get());
+    lua_pushcclosure(L.get(), Lua::MIDI, 1);
+    lua_setglobal(L.get(), "midi");
 
     // Load song
     if (luaL_loadstring(L.get(), str.c_str())) {

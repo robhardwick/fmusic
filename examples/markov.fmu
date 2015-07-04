@@ -1,0 +1,47 @@
+local notes = {}
+local note1, note2 = {0, 0, 0, 0}, {0, 0, 0, 0}
+local chains = {}
+local offset = 0
+
+-- Get chain key
+function key(note1, note2)
+	return note1[2] .. note2[2]
+end
+
+-- Add to chain
+function insert(key, value)
+	local chain = chains[key]
+	if chain == nil then
+        chains[key] = {value}
+    else
+        chain[#chain + 1] = value
+    end
+end
+
+-- Get MIDI note on messages
+local messages = midi("examples/midi/satie/troisgnossiennes.mid")
+for i = 1, #messages - 1, 1 do
+	if messages[i][1] == 144 then
+		notes[#notes + 1] = messages[i]
+	end
+end
+
+-- Build chains
+for i = 1, #notes - 1, 1 do
+	insert(key(note1, note2), notes[i])
+	note1 = note2
+	note2 = notes[i]
+end
+insert(key(note1, note2), {0, 0, 0, 0})
+
+-- Get note
+function f(t)
+	if t > offset then
+		local chain = chains[key(note1, note2)]
+		note1 = note2
+		note2 = chain[math.random(#chain)]
+		offset = offset + note2[4]
+		return note1[1], note1[2], note1[3]
+	end
+	return 0, 0, 0
+end

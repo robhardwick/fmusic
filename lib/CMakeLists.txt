@@ -18,6 +18,8 @@ add_library(libfmusic STATIC
     Song.cpp
     MIDI.cpp
     Lua/Logger.cpp
+    Lua/MIDI.cpp
+    Lua/MIDIFile.cpp
 )
 
 # Link Pthreads, LuaJIT and RtMidi
