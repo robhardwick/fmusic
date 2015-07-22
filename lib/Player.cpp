@@ -10,20 +10,14 @@ using namespace fMusic::Core;
  * Initialise player
  */
 Player::Player(std::shared_ptr<Log> log)
-    : log(log) {}
+    : log(log),
+      interval(DEFAULT_INTERVAL) {}
 
 /**
  * Stop player execution
  */
 Player::~Player() {
     stop();
-}
-
-/**
- * Add instrument
- */
-void Player::addInstrument(std::shared_ptr<Instrument> instrument) {
-    instruments.push_back(instrument);
 }
 
 /**
@@ -40,6 +34,20 @@ bool Player::isPlaying() {
 bool Player::isPaused() {
     std::unique_lock<std::mutex> lock(mutex);
     return paused;
+}
+
+/**
+ * Add instrument
+ */
+void Player::addInstrument(std::shared_ptr<Instrument> instrument) {
+    instruments.push_back(instrument);
+}
+
+/**
+ * Set interval
+ */
+void Player::setInterval(int32_t value) {
+    interval = value;
 }
 
 /**
@@ -119,7 +127,7 @@ void Player::task() {
         }
 
         // Set next execution time
-        timeout += std::chrono::milliseconds(10);
+        timeout += std::chrono::milliseconds(interval);
 
         // Sleep until next execution
         lock.unlock();

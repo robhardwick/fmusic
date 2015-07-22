@@ -7,6 +7,7 @@
 #include <QPlainTextEdit>
 #include "LogWindow.h"
 #include "VisualiserWindow.h"
+#include "SettingsWindow.h"
 #include "SyntaxHighlight.h"
 #include "Player.h"
 #include "MIDI.h"
@@ -32,6 +33,10 @@ namespace App {
             void stop();
 
         private:
+            static const char *DEFAULT_SONG;
+            static const QSize DEFAULT_SIZE;
+            static const QPoint DEFAULT_POS;
+
             void setPlayAction();
             void setCurrentSong(const QString &fileName);
             void loadSong(const QString &fileName);
@@ -40,6 +45,7 @@ namespace App {
 
             std::shared_ptr<LogWindow> logWindow;
             std::shared_ptr<VisualiserWindow> visualiserWindow;
+            SettingsWindow settingsWindow;
 
             Core::Player player;
             std::shared_ptr<Core::Instruments::MIDI> midi;
@@ -55,6 +61,7 @@ namespace App {
             QAction saveAsAction;
             QAction playAction;
             QAction stopAction;
+            QAction settingsAction;
             QAction closeAction;
 
             QMenu *fileMenu;

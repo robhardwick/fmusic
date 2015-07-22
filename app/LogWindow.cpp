@@ -3,8 +3,16 @@
 #include <QDateTime>
 #include <QMenuBar>
 #include "LogWindow.h"
+#include "Settings.h"
 
 using namespace fMusic::App;
+
+/**
+ * Constants
+ */
+const QSize LogWindow::DEFAULT_SIZE = QSize(800, 200);
+const QPoint LogWindow::DEFAULT_POS = QPoint(20, 480);
+const char *LogWindow::LOG_STATUS_NAMES[] = {"error", "warn", "info", "debug"};
 
 /**
  * Create log window
@@ -17,7 +25,12 @@ LogWindow::LogWindow()
     // Window configuration
     setWindowIconText(tr("Log"));
     setCentralWidget(&text);
-    setGeometry(20, 480, 800, 200);
+
+    // Window geometry
+    Settings settings;
+    settings.beginGroup("LogWindow");
+    resize(settings.value("size", DEFAULT_SIZE).toSize());
+    move(settings.value("pos", DEFAULT_POS).toPoint());
 
     // Log
     connect(this, &LogWindow::write, this, &LogWindow::append);
@@ -50,8 +63,6 @@ LogWindow::LogWindow()
     text.setReadOnly(true);
 }
 
-const char *logStatusName[] = {"error", "warn", "info", "debug"};
-
 /**
  * Format log message and send "write" signal
  */
@@ -62,7 +73,7 @@ void LogWindow::message(fMusic::Core::LogStatus status, const std::string &messa
 
     // Format as "[<timestamp>][<status>] message"
     std::ostringstream out;
-    out << '[' << dateTimeStr << "][" << logStatusName[(int)status] << "] " << message;
+    out << '[' << dateTimeStr << "][" << LOG_STATUS_NAMES[(int)status] << "] " << message;
 
     emit write(QString(out.str().c_str()));
 }
@@ -79,4 +90,19 @@ void LogWindow::append(QString str) {
  */
 void LogWindow::clear() {
     text.setPlainText("");
+}
+
+/**
+ * Save window settings on close
+ */
+void LogWindow::closeEvent(QCloseEvent *event) {
+    // Save window size and position
+    Settings settings;
+    settings.beginGroup("LogWindow");
+    settings.setValue("size", size());
+    settings.setValue("pos", pos());
+    settings.endGroup();
+
+    // Quit
+    event->accept();
 }

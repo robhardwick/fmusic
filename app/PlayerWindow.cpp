@@ -1,14 +1,20 @@
 #include <QtWidgets>
 #include "PlayerWindow.h"
+#include "Settings.h"
 
 using namespace fMusic::App;
 
-const char *DEFAULT = "function f(t)\n"
-                      "\tif (t % 300) == 0 then\n"
-                      "\t\treturn 144, (math.sin(t % math.pi) * 26) + 48, 70\n"
-                      "\tend\n"
-                      "\treturn 0, 0, 0\n"
-                      "end";
+/**
+ * Constants
+ */
+const QSize PlayerWindow::DEFAULT_SIZE = QSize(600, 400);
+const QPoint PlayerWindow::DEFAULT_POS = QPoint(20, 20);
+const char *PlayerWindow::DEFAULT_SONG = "function f(t)\n"
+                                         "\tif (t % 300) == 0 then\n"
+                                         "\t\treturn 144, (math.sin(t % math.pi) * 26) + 48, 70\n"
+                                         "\tend\n"
+                                         "\treturn 0, 0, 0\n"
+                                         "end";
 
 /**
  * Create player/editor window
@@ -27,6 +33,7 @@ PlayerWindow::PlayerWindow()
       saveAsAction(tr("Save &As..."), this),
       playAction(this),
       stopAction(QIcon(":/stop.svg"), tr("S&top"), this),
+      settingsAction(tr("Preferences"), this),
       closeAction(tr("&Close"), this),
       highlighter(textEdit.document()) {
 
@@ -43,7 +50,12 @@ PlayerWindow::PlayerWindow()
     // Window configuration
     setUnifiedTitleAndToolBarOnMac(true);
     setCentralWidget(&textEdit);
-    setGeometry(20, 20, 600, 400);
+
+    // Window geometry
+    Settings settings;
+    settings.beginGroup("PlayerWindow");
+    resize(settings.value("size", DEFAULT_SIZE).toSize());
+    move(settings.value("pos", DEFAULT_POS).toPoint());
 
     // Actions
     setPlayAction();
@@ -70,6 +82,10 @@ PlayerWindow::PlayerWindow()
     stopAction.setStatusTip(tr("Stop playing"));
     connect(&stopAction, SIGNAL(triggered()), this, SLOT(stop()));
 
+    settingsAction.setShortcuts(QKeySequence::Preferences);
+    settingsAction.setStatusTip(tr("Preferences"));
+    connect(&settingsAction, SIGNAL(triggered()), &settingsWindow, SLOT(show()));
+
     closeAction.setStatusTip(tr("Close this window"));
     connect(&closeAction, SIGNAL(triggered()), this, SLOT(close()));
 
@@ -80,6 +96,7 @@ PlayerWindow::PlayerWindow()
     fileMenu->addAction(&saveAction);
     fileMenu->addAction(&saveAsAction);
     fileMenu->addSeparator();
+    fileMenu->addAction(&settingsAction);
     fileMenu->addAction(&closeAction);
 
     // Play menu
@@ -113,7 +130,7 @@ PlayerWindow::PlayerWindow()
 
     // Start with blank document
     setCurrentSong("");
-    textEdit.setPlainText(DEFAULT);
+    textEdit.setPlainText(DEFAULT_SONG);
 
 }
 
@@ -122,8 +139,17 @@ PlayerWindow::PlayerWindow()
  */
 void PlayerWindow::closeEvent(QCloseEvent *event) {
     if (saveIfModified()) {
+        // Save window size and position
+        Settings settings;
+        settings.beginGroup("PlayerWindow");
+        settings.setValue("size", size());
+        settings.setValue("pos", pos());
+        settings.endGroup();
+
+        // Quit
         event->accept();
     } else {
+        // Ignore if user cancelled
         event->ignore();
     }
 }
@@ -184,8 +210,15 @@ bool PlayerWindow::saveAs() {
  */
 void PlayerWindow::play() {
     if (player.isPlaying()) {
+        // Pause
         player.pause();
     } else {
+        // Set player settings
+        Settings settings;
+        settings.beginGroup("Player");
+        player.setInterval(settings.value("interval", fMusic::Core::Player::DEFAULT_INTERVAL).toInt());
+
+        // Play
         player.play(textEdit.toPlainText().toUtf8().constData());
     }
     setPlayAction();
@@ -220,7 +253,7 @@ void PlayerWindow::setCurrentSong(const QString &fileName) {
     textEdit.document()->setModified(false);
     setWindowModified(false);
 
-    setWindowFilePath((curSong.isEmpty()) ? "untitled.emu" : curSong);
+    setWindowFilePath((curSong.isEmpty()) ? "untitled.fmu" : curSong);
 }
 
 /**

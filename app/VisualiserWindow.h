@@ -21,12 +21,21 @@ namespace App {
 
             void message(Core::Message &message);
 
+            static const QColor DEFAULT_COLOUR;
+
         public slots:
             void render();
 
+        protected:
+            void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
+
         private:
-            static const int BLOCK_WIDTH;
-            static const int BLOCK_HEIGHT;
+            static const QSize DEFAULT_SIZE;
+            static const QPoint DEFAULT_POS;
+
+            static const int32_t BLOCK_WIDTH;
+            static const int32_t BLOCK_HEIGHT;
+
             static const float BLOCKS_X;
             static const float BLOCKS_Y;
 
@@ -36,7 +45,6 @@ namespace App {
             QPainter painter;
 
             QBrush backgroundBrush;
-            QBrush blockBrush;
 
             QVector<QPoint> blocks;
     };

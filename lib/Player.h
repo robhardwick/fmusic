@@ -25,10 +25,13 @@ namespace Core {
             bool isPaused();
 
             void addInstrument(std::shared_ptr<Instrument> instrument);
+            void setInterval(int32_t value);
 
             void play(const std::string &song);
             void pause();
             void stop();
+
+            static const int32_t DEFAULT_INTERVAL = 10;
 
         private:
             void task();
@@ -40,6 +43,8 @@ namespace Core {
 
             bool playing = false;
             bool paused = false;
+
+            int32_t interval;
 
             std::thread thread;
             std::mutex mutex;

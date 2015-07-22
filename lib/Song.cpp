@@ -7,8 +7,10 @@
 
 using namespace fMusic::Core;
 
-// Map MIDI message index to name
-const char *MESSAGE_VALUE_NAME[] = {"status", "data 1", "data 2"};
+/**
+ * Constants
+ */
+const char *Song::MESSAGE_VALUE_NAMES[] = {"status", "data 1", "data 2"};
 
 /**
  * Initialise lua and load song text
@@ -83,7 +85,7 @@ bool Song::execute(int32_t offset, Message &message) {
         } else {
             // Log error and bail
             log->message(LogStatus::Error,
-                std::string("Invalid ") + MESSAGE_VALUE_NAME[i] + " value");
+                std::string("Invalid ") + MESSAGE_VALUE_NAMES[i] + " value");
             goto cleanup;
         }
     }

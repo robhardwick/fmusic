@@ -1,13 +1,21 @@
+#include <QCloseEvent>
 #include <QTimer>
 #include "VisualiserWindow.h"
+#include "Settings.h"
 
 using namespace fMusic::App;
 
 /**
  * Constants
  */
-const int VisualiserWindow::BLOCK_WIDTH = 10;
-const int VisualiserWindow::BLOCK_HEIGHT = 10;
+const QColor VisualiserWindow::DEFAULT_COLOUR = QColor(180, 207, 236);
+
+const QSize VisualiserWindow::DEFAULT_SIZE = QSize(600, 400);
+const QPoint VisualiserWindow::DEFAULT_POS = QPoint(650, 20);
+
+const int32_t VisualiserWindow::BLOCK_WIDTH = 10;
+const int32_t VisualiserWindow::BLOCK_HEIGHT = 10;
+
 const float VisualiserWindow::BLOCKS_X = 1000.0;
 const float VisualiserWindow::BLOCKS_Y = 128.0;
 
@@ -21,11 +29,15 @@ VisualiserWindow::VisualiserWindow(std::shared_ptr<Core::Log> log)
 
     // Window configuration
     setWindowIconText(tr("Visualiser"));
-    setGeometry(650, 20, 600, 400);
 
-    // Brushes
+    // Window geometry
+    Settings settings;
+    settings.beginGroup("VisualiserWindow");
+    resize(settings.value("size", DEFAULT_SIZE).toSize());
+    move(settings.value("pos", DEFAULT_POS).toPoint());
+
+    // Background brush
     backgroundBrush = QBrush(Qt::black);
-    blockBrush = QBrush(QColor(180, 207, 236));
 
     // Render timeout
     QTimer *timer = new QTimer(this);
@@ -52,6 +64,11 @@ void VisualiserWindow::render() {
 
     // Paint background
     painter.fillRect(0, 0, winSize.width(), winSize.height(), backgroundBrush);
+
+    // Create block brush
+    Settings settings;
+    settings.beginGroup("Visualiser");
+    QBrush blockBrush(settings.value("colour", VisualiserWindow::DEFAULT_COLOUR).value<QColor>());
 
     // Iterate over blocks
     QMutableVectorIterator<QPoint> it(blocks);
@@ -89,4 +106,19 @@ void VisualiserWindow::render() {
  */
 void VisualiserWindow::message(Core::Message &message) {
     blocks.push_back(QPoint(0, message[1]));
+}
+
+/**
+ * Save window settings on close
+ */
+void VisualiserWindow::closeEvent(QCloseEvent *event) {
+    // Save window size and position
+    Settings settings;
+    settings.beginGroup("VisualiserWindow");
+    settings.setValue("size", size());
+    settings.setValue("pos", pos());
+    settings.endGroup();
+
+    // Quit
+    event->accept();
 }

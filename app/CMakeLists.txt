@@ -30,7 +30,9 @@ add_executable(fMusic MACOSX_BUNDLE
     PlayerWindow.cpp
     SyntaxHighlight.cpp
     VisualiserWindow.cpp
-    LogWindow.cpp)
+    LogWindow.cpp
+    SettingsWindow.cpp
+    Settings.h)
 
 # Link static library
 target_link_libraries(fMusic libfmusic)

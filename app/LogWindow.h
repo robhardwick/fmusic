@@ -25,7 +25,14 @@ namespace App {
             void append(QString str);
             void clear();
 
+        protected:
+            void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
+
         private:
+            static const QSize DEFAULT_SIZE;
+            static const QPoint DEFAULT_POS;
+            static const char *LOG_STATUS_NAMES[];
+
             QAction clearAction;
             QAction closeAction;
 

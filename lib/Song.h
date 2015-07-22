@@ -19,6 +19,8 @@ namespace Core {
             bool execute(int32_t offset, Message &message);
 
         private:
+            static const char *MESSAGE_VALUE_NAMES[];
+
             class LuaDeleter {
                 public:
                     void operator()(lua_State *L);
