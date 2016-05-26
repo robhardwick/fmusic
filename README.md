@@ -21,6 +21,13 @@ end
 
 For some more interesting songs have a look at the `.fmu` files in the [examples](examples/) folder.
 
+## Examples
+
+Both of these examples are using the [CLI](cli/) program and [Reaktor 5](http://www.native-instruments.com/en/products/komplete/synths/reaktor-5/) to turn the MIDI messages into music! The [fugue](https://en.wikipedia.org/wiki/Fugue) by Bach (the first link) seems to work better. Perhaps this is due to the mathematical structure of a fugue but that is merely a guess.
+
+* [Markov chain generated music from Bach's "Toccata and Fugue in D minor"](https://www.youtube.com/watch?v=lIOiAK0x4vA)
+* [Markov chain generated music from Satie's "Gymnopédies" and "Trois Gnossiennes"](https://www.youtube.com/watch?v=H3xgdDTvvlc)
+
 ## Dependencies
 
 Many thanks to the developers of the following (awesome) libraries!
