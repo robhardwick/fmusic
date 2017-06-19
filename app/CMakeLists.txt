@@ -30,6 +30,7 @@ add_executable(fMusic MACOSX_BUNDLE
     PlayerWindow.cpp
     SyntaxHighlight.cpp
     VisualiserWindow.cpp
+    VisualiserCanvas.cpp
     LogWindow.cpp
     SettingsWindow.cpp
     Settings.h)

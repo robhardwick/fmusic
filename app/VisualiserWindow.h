@@ -3,9 +3,7 @@
 
 #include <memory>
 #include <QMainWindow>
-#include <QOpenGLWidget>
-#include <QPainter>
-#include <QBrush>
+#include "VisualiserCanvas.h"
 #include "Instrument.h"
 #include "Log.h"
 
@@ -19,9 +17,7 @@ namespace App {
             VisualiserWindow(std::shared_ptr<Core::Log> log);
             ~VisualiserWindow();
 
-            void message(Core::Message &message);
-
-            static const QColor DEFAULT_COLOUR;
+            void message(Core::Message &message) override;
 
         public slots:
             void render();
@@ -33,20 +29,9 @@ namespace App {
             static const QSize DEFAULT_SIZE;
             static const QPoint DEFAULT_POS;
 
-            static const int32_t BLOCK_WIDTH;
-            static const int32_t BLOCK_HEIGHT;
-
-            static const float BLOCKS_X;
-            static const float BLOCKS_Y;
-
             std::shared_ptr<Core::Log> log;
 
-            QOpenGLWidget canvas;
-            QPainter painter;
-
-            QBrush backgroundBrush;
-
-            QVector<QPoint> blocks;
+            VisualiserCanvas canvas;
     };
 
 }

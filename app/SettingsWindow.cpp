@@ -2,7 +2,7 @@
 #include <QIntValidator>
 #include <QGroupBox>
 #include <QColorDialog>
-#include "VisualiserWindow.h"
+#include "VisualiserCanvas.h"
 #include "SettingsWindow.h"
 #include "Settings.h"
 #include "Player.h"
@@ -45,7 +45,7 @@ SettingsWindow::SettingsWindow()
     // Setup visualiser colour input
     settings.endGroup();
     settings.beginGroup("Visualiser");
-    visualiserColourPalette.setColor(QPalette::Button, settings.value("colour", VisualiserWindow::DEFAULT_COLOUR).value<QColor>());
+    visualiserColourPalette.setColor(QPalette::Button, settings.value("colour", VisualiserCanvas::DEFAULT_COLOUR).value<QColor>());
     visualiserColourBtn.setPalette(visualiserColourPalette);
     visualiserColourBtn.setAutoFillBackground(true);
     visualiserColourBtn.setFlat(true);
@@ -83,7 +83,7 @@ void SettingsWindow::updateColour() {
     Settings settings;
     settings.beginGroup("Visualiser");
 
-    QColor colour = QColorDialog::getColor(settings.value("colour", VisualiserWindow::DEFAULT_COLOUR).value<QColor>());
+    QColor colour = QColorDialog::getColor(settings.value("colour", VisualiserCanvas::DEFAULT_COLOUR).value<QColor>());
     if (!colour.isValid()) {
         return;
     }

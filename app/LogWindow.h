@@ -16,7 +16,7 @@ namespace App {
 
         public:
             LogWindow();
-            void message(fMusic::Core::LogStatus status, const std::string &message);
+            void message(fMusic::Core::LogStatus status, const std::string &message) override;
 
         signals:
             void write(QString str);

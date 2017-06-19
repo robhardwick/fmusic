@@ -2,8 +2,8 @@
 #include <lua.hpp>
 #include "Song.h"
 #include "Log.h"
-#include "Lua/Logger.h"
-#include "Lua/MIDI.h"
+#include "lua/Logger.h"
+#include "lua/MIDI.h"
 
 using namespace fMusic::Core;
 
